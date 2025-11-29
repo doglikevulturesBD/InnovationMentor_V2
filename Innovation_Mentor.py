@@ -26,13 +26,13 @@ local_css("styles.css")
 # -------------------------------------
 hero_html = textwrap.dedent("""
 <div class="hero">
-    <div class="hero-glow"></div>
-    <div class="hero-particles"></div>
+<div class="hero-glow"></div>
+<div class="hero-particles"></div>
 
-    <div class="hero-content">
-        <h1 class="hero-title">Innovation Mentor</h1>
-        <p class="hero-sub">A future-ready space for innovators, startups, and portfolio managers.</p>
-    </div>
+<div class="hero-content">
+<h1 class="hero-title">Innovation Mentor</h1>
+<p class="hero-sub">A future-ready space for innovators, startups, and portfolio managers.</p>
+</div>
 </div>
 """)
 
