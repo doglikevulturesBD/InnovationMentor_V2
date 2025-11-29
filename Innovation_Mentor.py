@@ -45,16 +45,16 @@ tiles_html = textwrap.dedent("""
 
 <div class="holo-container">
 <a class="holo-tile" href="TRL_Calculator"> TRL Calculator</a>
-<a class="holo-tile" href="/02_Business_Model_Selector">Business Models</a>
-<a class="holo-tile" href="/03_Finanancial_Projection">Financial Projection</a>
-<a class="holo-tile" href="/05_Market_Study_Guide">Marketing Strategy</a>
-<a class="holo-tile" href="/06_Commercialisation_Strategy">Commercialisation Strategy</a>
-<a class="holo-tile" href="/07_IP_Management">IP Management</a>
-<a class="holo-tile" href="/08_Risk_Dashboard">Risk Dashboard</a>
-<a class="holo-tile" href="/09_Financial_Options">Financial Options</a>
-<a class="holo-tile" href="/10_Legal_and_Compliance">Legal Compliance</a>
-<a class="holo-tile" href="/11_Feedback">Feedback</a>
-<a class="holo-tile" href="/02_Export_Report">Export Tools</a>
+<a class="holo-tile" href="/Business_Model_Selector">Business Models</a>
+<a class="holo-tile" href="/Finanancial_Projection">Financial Projection</a>
+<a class="holo-tile" href="/Market_Study_Guide">Marketing Strategy</a>
+<a class="holo-tile" href="/Commercialisation_Strategy">Commercialisation Strategy</a>
+<a class="holo-tile" href="/IP_Management">IP Management</a>
+<a class="holo-tile" href="/Risk_Dashboard">Risk Dashboard</a>
+<a class="holo-tile" href="/Financial_Options">Financial Options</a>
+<a class="holo-tile" href="/Legal_and_Compliance">Legal Compliance</a>
+<a class="holo-tile" href="/Feedback">Feedback</a>
+<a class="holo-tile" href="/Export_Report">Export Tools</a>
 
 </div>
 """)
