@@ -48,11 +48,11 @@ local_css("styles.css")
 # ---------------- HERO ----------------
 hero_html = """
 <div class="hero">
-    <div class="hero-glow"></div>
-    <div class="hero-content">
-        <h1 class="hero-title">Business Model Selector</h1>
-        <p class="hero-sub">Find the best-fit pathways for taking your innovation forward.</p>
-    </div>
+<div class="hero-glow"></div>
+<div class="hero-content">
+<h1 class="hero-title">Business Model Selector</h1>
+<p class="hero-sub">Find the best-fit pathways for taking your innovation forward.</p>
+</div>
 </div>
 """
 
@@ -146,12 +146,12 @@ if st.session_state["secondary_done"]:
 
     tile = f"""
     <div class="bm-tile">
-        <h3>{bm['name']}</h3>
-        <p><b>Score:</b> {score:.2f}</p>
-        <p>{bm['description']}</p>
-        <p><b>Tag Fit:</b> {overlap} aligned traits</p>
-        <p><b>Success Rate:</b> {int(bm['success_score']*100)}%</p>
-        <p><b>Maturity:</b> {bm['maturity_level'].title()}</p>
+    <h3>{bm['name']}</h3>
+    <p><b>Score:</b> {score:.2f}</p>
+    <p>{bm['description']}</p>
+    <p><b>Tag Fit:</b> {overlap} aligned traits</p>
+    <p><b>Success Rate:</b> {int(bm['success_score']*100)}%</p>
+    <p><b>Maturity:</b> {bm['maturity_level'].title()}</p>
     </div>
     """
 
