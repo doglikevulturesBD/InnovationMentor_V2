@@ -32,13 +32,13 @@ local_css("styles.css")
 # ------------------------------------------------------
 hero_html = """
 <div class="hero sub-hero">
-    <div class="hero-glow"></div>
-    <div class="hero-particles"></div>
+<div class="hero-glow"></div>
+<div class="hero-particles"></div>
 
-    <div class="hero-content">
-        <h1 class="hero-title">Commercialisation Strategy</h1>
-        <p class="hero-sub">Discover the most effective pathway and marketing system to take your innovation to market.</p>
-    </div>
+<div class="hero-content">
+<h1 class="hero-title">Commercialisation Strategy</h1>
+<p class="hero-sub">Discover the most effective pathway and marketing system to take your innovation to market.</p>
+</div>
 </div>
 """
 st.markdown(hero_html, unsafe_allow_html=True)
