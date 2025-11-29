@@ -44,7 +44,7 @@ st.markdown(hero_html, unsafe_allow_html=True)
 tiles_html = textwrap.dedent("""
 
 <div class="holo-container">
-<a class="holo-tile" href="/01_TRL_Calculator"> TRL Calculator</a>
+<a class="holo-tile" href="pages/01_TRL_Calculator"> TRL Calculator</a>
 <a class="holo-tile" href="/02_Business_Model_Selector">Business Models</a>
 <a class="holo-tile" href="/03_Finanancial_Projection">Financial Projection</a>
 <a class="holo-tile" href="/05_Market_Study_Guide">Marketing Strategy</a>
