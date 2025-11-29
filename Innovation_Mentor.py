@@ -50,7 +50,7 @@ tiles_html = textwrap.dedent("""
 <div class="glow-tile">{risk}</div>
 <div class="glow-tile">{export}</div>
 </div>
-"""
+""")
 
 tiles_html = tiles_html.format(
     trl=st.page_link("pages/01_TRL_Assessment.py", label="TRL Assessment", icon="🔬"),
