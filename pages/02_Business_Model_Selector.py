@@ -46,17 +46,21 @@ def local_css(name):
 local_css("styles.css")
 
 # ---------------- HERO ----------------
-hero_html = ("""
-<div class="hero">
+ HERO BANNER — SAME STYLE AS HOME PAGE
+# ------------------------------------------------------
+hero_html = """
+<div class="hero sub-hero">
 <div class="hero-glow"></div>
+<div class="hero-particles"></div>
+
 <div class="hero-content">
 <h1 class="hero-title">Business Model Selector</h1>
-<p class="hero-sub">Find the best-fit pathways for taking your innovation forward.</p>
+<p class="hero-sub">Assists in selecting a business model.</p>
 </div>
 </div>
-""")
-
+"""
 st.markdown(hero_html, unsafe_allow_html=True)
+
 
 # -------------------------------
 # Session State
