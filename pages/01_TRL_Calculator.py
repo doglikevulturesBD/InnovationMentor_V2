@@ -131,8 +131,7 @@ else:
         name = "TRL 0 (pre-TRL)" if lvl == 0 else f"TRL {lvl}"
         st.markdown(f"{marker} **{name}:** {trl_descriptions[lvl]}")
 
-    st.markdown("### 💬 Reflection")
-    enforce_reflection("trl_assessment")
+
 
     st.button("🔁 Restart", on_click=restart, use_container_width=True)
 
