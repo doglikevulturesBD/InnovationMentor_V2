@@ -1,6 +1,5 @@
 # ============================================================
-# INNOVATION MENTOR APP
-# PAGE: 07_IP_Management.py
+# INNOVATION MENTOR APP — IP MANAGEMENT (TILE EDITION)
 # ============================================================
 
 import streamlit as st
@@ -17,7 +16,7 @@ st.set_page_config(
 )
 
 # ------------------------------------------------------
-# LOAD GLOBAL CSS (same as all other modules)
+# GLOBAL CSS
 # ------------------------------------------------------
 def local_css(file_name: str):
     with open(file_name, "r") as f:
@@ -27,7 +26,7 @@ local_css("styles.css")
 
 
 # ------------------------------------------------------
-# HERO BANNER (Unified Innovation Mentor style)
+# HERO SECTION
 # ------------------------------------------------------
 hero_html = """
 <div class="hero sub-hero">
@@ -36,49 +35,46 @@ hero_html = """
 
 <div class="hero-content">
 <h1 class="hero-title">Intellectual Property Management</h1>
-<p class="hero-sub">Determine the best IP protection pathway for your innovation.</p>
+<p class="hero-sub">Determine the strongest IP protection pathway for your innovation.</p>
 </div>
 </div>
 """
 st.markdown(hero_html, unsafe_allow_html=True)
 
 
+# ------------------------------------------------------
+# SECTION WRAPPER
+# ------------------------------------------------------
+st.markdown("<div class='section-block'>", unsafe_allow_html=True)
+
 
 
 # ------------------------------------------------------
-# LOAD QUESTIONNAIRE JSON
+# LOAD QUESTIONNAIRE
 # ------------------------------------------------------
 q_path = Path("data/ip_questionnaire.json")
 if not q_path.exists():
-    st.error("❌ Missing file: `ip_questionnaire.json` in /data")
+    st.error("❌ Missing file: ip_questionnaire.json")
     st.stop()
 
-try:
-    with open(q_path, "r", encoding="utf-8") as f:
-        questions = json.load(f)["questions"]
-except Exception as e:
-    st.error(f"❌ Error loading ip_questionnaire.json: {e}")
-    st.stop()
+with open(q_path, "r", encoding="utf-8") as f:
+    questions = json.load(f)["questions"]
 
 
 # ------------------------------------------------------
-# LOAD RATIONALE JSON
+# LOAD RATIONALE
 # ------------------------------------------------------
 r_path = Path("data/ip_rationale.json")
 if not r_path.exists():
-    st.error("❌ Missing file: `ip_rationale.json` in /data")
+    st.error("❌ Missing file: ip_rationale.json")
     st.stop()
 
-try:
-    with open(r_path, "r", encoding="utf-8") as f:
-        rationale_data = json.load(f)
-except Exception as e:
-    st.error(f"❌ Error loading ip_rationale.json: {e}")
-    st.stop()
+with open(r_path, "r", encoding="utf-8") as f:
+    rationale_data = json.load(f)
 
 
 # ------------------------------------------------------
-# RENDER QUESTIONNAIRE
+# QUESTIONNAIRE
 # ------------------------------------------------------
 st.header("📋 IP Questionnaire")
 
@@ -94,93 +90,134 @@ for q in questions:
 # SCORING ENGINE
 # ------------------------------------------------------
 ip_types = ["Patent", "Design", "Trademark", "Copyright", "Trade Secret"]
-ip_scores = {ip: 0 for ip in ip_types}
+scores = {ip: 0 for ip in ip_types}
 
 for q in questions:
-    user_choice = st.session_state.get(q["id"])
-    if user_choice:
-        weight_map = q["options"][user_choice]  # dict: ip → score
-        for ip_type, score in weight_map.items():
-            ip_scores[ip_type] += score
+    answer = st.session_state.get(q["id"])
+    if answer:
+        for ip_type, val in q["options"][answer].items():
+            scores[ip_type] += val
 
-sorted_scores = sorted(ip_scores.items(), key=lambda x: x[1], reverse=True)
+sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
 
 
 # ------------------------------------------------------
-# RESULTS DISPLAY
+# RESULTS SECTION
 # ------------------------------------------------------
 st.markdown("---")
 if st.button("🔍 Show My IP Recommendation", use_container_width=True):
 
-    primary_ip, primary_score = sorted_scores[0]
-    secondary_ip, secondary_score = sorted_scores[1]
+    primary_ip, p_score = sorted_scores[0]
+    secondary_ip, s_score = sorted_scores[1]
 
-    # ----------------------------
-    # MAIN RESULTS
-    # ----------------------------
-    st.success(f"🏆 Primary Recommendation: **{primary_ip}** (score {primary_score})")
-    st.info(f"✨ Secondary Consideration: **{secondary_ip}** (score {secondary_score})")
+    # ------------------------------
+    # TILE: PRIMARY RECOMMENDATION
+    # ------------------------------
+    st.markdown(f"""
+    <div class="im-tile">
+        <h3>🏆 Primary Recommendation</h3>
+        <h2 style="margin-top:-5px;">{primary_ip}</h2>
+        <p><b>Score:</b> {p_score}</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    st.markdown("---")
+    # ------------------------------
+    # TILE: SECONDARY RECOMMENDATION
+    # ------------------------------
+    st.markdown(f"""
+    <div class="im-tile">
+        <h3>✨ Secondary Consideration</h3>
+        <h3 style="margin-top:-5px;">{secondary_ip}</h3>
+        <p><b>Score:</b> {s_score}</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    # ----------------------------
-    # DETAILS FOR PRIMARY IP TYPE
-    # ----------------------------
-    ip_info = rationale_data.get(primary_ip, {})
 
-    st.write("### 📘 Description")
-    st.write(ip_info.get("description", "No description available."))
+    # LOAD PRIMARY DETAILS
+    info = rationale_data.get(primary_ip, {})
 
-    st.write("### 🧭 Recommended Next Steps")
-    for step in ip_info.get("next_steps", []):
-        st.write(f"- {step}")
+    # ------------------------------
+    # TILE: DESCRIPTION
+    # ------------------------------
+    st.markdown(f"""
+    <div class="im-tile">
+        <h3>📘 Description</h3>
+        <p>{info.get('description', 'No description available.')}</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    st.write("### 💰 Approximate Cost")
-    st.write(ip_info.get("approx_cost", "No cost information available."))
 
-    st.markdown("---")
+    # ------------------------------
+    # TILE: NEXT STEPS
+    # ------------------------------
+    steps_html = "<ul>" + "".join([f"<li>{step}</li>" for step in info.get("next_steps", [])]) + "</ul>"
 
-    # ----------------------------
-    # RISK WARNINGS
-    # ----------------------------
-    st.write("### ⚠️ Key Risks & Limitations")
+    st.markdown(f"""
+    <div class="im-tile">
+        <h3>🧭 Recommended Next Steps</h3>
+        {steps_html}
+    </div>
+    """, unsafe_allow_html=True)
 
+
+    # ------------------------------
+    # TILE: COST
+    # ------------------------------
+    st.markdown(f"""
+    <div class="im-tile">
+        <h3>💰 Estimated Cost</h3>
+        <p>{info.get('approx_cost', 'Cost information not available.')}</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+    # ------------------------------
+    # TILE: RISKS
+    # ------------------------------
     risk_map = {
         "Patent": [
             "Public disclosure before filing destroys novelty.",
-            "International filings become expensive quickly.",
-            "Maintenance fees required to keep protection active."
+            "International filings are expensive.",
+            "Requires maintenance fees to stay active."
         ],
         "Design": [
-            "Protects appearance, not function.",
-            "Disclosure before filing destroys novelty."
+            "Protects appearance only, not function.",
+            "Disclosure before filing removes eligibility."
         ],
         "Trademark": [
-            "Descriptive or generic names cannot be registered.",
-            "Prior conflicting trademarks may block approval."
+            "Generic/descriptive names cannot be registered.",
+            "Existing marks can block your application."
         ],
         "Copyright": [
-            "Protects only expression, not ideas or algorithms.",
-            "Does not protect underlying concepts or logic."
+            "Protects expression, not ideas or algorithms.",
+            "Does not protect underlying concepts."
         ],
         "Trade Secret": [
             "Protection ends if secrecy is lost.",
-            "Must implement strict internal confidentiality processes."
+            "Requires strong internal confidentiality systems."
         ]
     }
 
-    for risk in risk_map.get(primary_ip, []):
-        st.write(f"- {risk}")
+    risk_html = "<ul>" + "".join([f"<li>{r}</li>" for r in risk_map.get(primary_ip, [])]) + "</ul>"
 
-    st.markdown("---")
+    st.markdown(f"""
+    <div class="im-tile">
+        <h3>⚠️ Risks & Limitations</h3>
+        {risk_html}
+    </div>
+    """, unsafe_allow_html=True)
 
-    # ----------------------------
-    # DISCLAIMER
-    # ----------------------------
-    st.info(
-        "This tool provides early-stage guidance only. For formal legal advice, "
-        "consult a registered IP attorney or IP specialist."
-    )
+
+    # ------------------------------
+    # TILE: DISCLAIMER
+    # ------------------------------
+    st.markdown("""
+    <div class="im-tile">
+        <h3>📎 Disclaimer</h3>
+        <p>This tool provides early-stage guidance only.  
+        For formal legal advice, consult a <b>registered IP attorney</b> or specialist.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 # ------------------------------------------------------
