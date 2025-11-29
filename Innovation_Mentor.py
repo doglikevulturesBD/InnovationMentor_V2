@@ -37,9 +37,10 @@ st.markdown("""
 
 
 # -------------------------------------
-# FEATURE TILES
 # -------------------------------------
-st.markdown("""
+# FEATURE TILES (FIXED)
+# -------------------------------------
+tile_html = """
 <div class="tile-container">
 
     <a href="01_TRL_Assessment" class="glow-tile">TRL Assessment</a>
@@ -50,9 +51,10 @@ st.markdown("""
     <a href="06_Export_Tools" class="glow-tile">Export Tools</a>
 
 </div>
-""", unsafe_allow_html=True)
+"""
 
-st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown(tile_html, unsafe_allow_html=True)
+
 
 
 # -------------------------------------
