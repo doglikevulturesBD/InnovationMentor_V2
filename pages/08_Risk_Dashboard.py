@@ -239,15 +239,15 @@ for risk_type, score in top_risks:
     # Now build full tile
     tile_html = f"""
     <div class="im-tile">
-        <h3>⚠️ {risk_type} — Score {score}</h3>
-        <p><b>Category:</b> {category} &nbsp; | &nbsp; <b>Baseline Severity:</b> {severity}</p>
+    <h3>⚠️ {risk_type} — Score {score}</h3>
+    <p><b>Category:</b> {category} &nbsp; | &nbsp; <b>Baseline Severity:</b> {severity}</p>
 
-        <h4>Description</h4>
-        <p>{entry.get("description", "—")}</p>
+    <h4>Description</h4>
+    <p>{entry.get("description", "—")}</p>
 
-        {indicators_block}
-        {mitigation_block}
-        {why_block}
+    {indicators_block}
+    {mitigation_block}
+    {why_block}
     </div>
     """
 
