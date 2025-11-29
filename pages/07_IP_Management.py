@@ -1,31 +1,66 @@
 # ============================================================
 # INNOVATION MENTOR APP
 # PAGE: 07_IP_Management.py
-# COMPLETE & POLISHED EDITION
 # ============================================================
 
 import streamlit as st
 import json
 from pathlib import Path
 
-# ----------------------------
+# ------------------------------------------------------
 # PAGE CONFIG
-# ----------------------------
-st.set_page_config(page_title="IP Management", layout="wide")
+# ------------------------------------------------------
+st.set_page_config(
+    page_title="IP Management",
+    page_icon="🔐",
+    layout="wide"
+)
 
-st.title("🔐 Intellectual Property (IP) Management Assistant")
+# ------------------------------------------------------
+# LOAD GLOBAL CSS (same as all other modules)
+# ------------------------------------------------------
+def local_css(file_name: str):
+    with open(file_name, "r") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("styles.css")
+
+
+# ------------------------------------------------------
+# HERO BANNER (Unified Innovation Mentor style)
+# ------------------------------------------------------
+hero_html = """
+<div class="hero sub-hero">
+    <div class="hero-glow"></div>
+    <div class="hero-particles"></div>
+
+    <div class="hero-content">
+        <h1 class="hero-title">Intellectual Property Management</h1>
+        <p class="hero-sub">Determine the best IP protection pathway for your innovation.</p>
+    </div>
+</div>
+"""
+st.markdown(hero_html, unsafe_allow_html=True)
+
+
+# ------------------------------------------------------
+# OPEN SECTION WRAPPER
+# ------------------------------------------------------
+st.markdown("<div class='section-block'>", unsafe_allow_html=True)
+
 st.caption("A guided tool to help innovators determine the best IP protection strategy.")
-st.markdown("""
-This tool evaluates the nature of your innovation and recommends the most suitable form 
-of intellectual property protection.  
-Answer the short questionnaire below to receive your personalised IP pathway.
 
----
+st.markdown("""
+This module evaluates the nature of your innovation and recommends the most suitable form  
+of **intellectual property protection** — including patents, designs, trademarks, and more.
 """)
 
-# ----------------------------
+st.markdown("---")
+
+
+# ------------------------------------------------------
 # LOAD QUESTIONNAIRE JSON
-# ----------------------------
+# ------------------------------------------------------
 q_path = Path("data/ip_questionnaire.json")
 if not q_path.exists():
     st.error("❌ Missing file: `ip_questionnaire.json` in /data")
@@ -38,9 +73,10 @@ except Exception as e:
     st.error(f"❌ Error loading ip_questionnaire.json: {e}")
     st.stop()
 
-# ----------------------------
+
+# ------------------------------------------------------
 # LOAD RATIONALE JSON
-# ----------------------------
+# ------------------------------------------------------
 r_path = Path("data/ip_rationale.json")
 if not r_path.exists():
     st.error("❌ Missing file: `ip_rationale.json` in /data")
@@ -54,9 +90,9 @@ except Exception as e:
     st.stop()
 
 
-# ----------------------------
+# ------------------------------------------------------
 # RENDER QUESTIONNAIRE
-# ----------------------------
+# ------------------------------------------------------
 st.header("📋 IP Questionnaire")
 
 for q in questions:
@@ -67,34 +103,33 @@ for q in questions:
     )
 
 
-# ----------------------------
+# ------------------------------------------------------
 # SCORING ENGINE
-# ----------------------------
+# ------------------------------------------------------
 ip_types = ["Patent", "Design", "Trademark", "Copyright", "Trade Secret"]
 ip_scores = {ip: 0 for ip in ip_types}
 
 for q in questions:
     user_choice = st.session_state.get(q["id"])
     if user_choice:
-        weight_map = q["options"][user_choice]  # dict of ip → score
+        weight_map = q["options"][user_choice]  # dict: ip → score
         for ip_type, score in weight_map.items():
             ip_scores[ip_type] += score
 
-# Rank the IP types
 sorted_scores = sorted(ip_scores.items(), key=lambda x: x[1], reverse=True)
 
 
-# ----------------------------
+# ------------------------------------------------------
 # RESULTS DISPLAY
-# ----------------------------
+# ------------------------------------------------------
 st.markdown("---")
-if st.button("Show My IP Recommendation", use_container_width=True):
+if st.button("🔍 Show My IP Recommendation", use_container_width=True):
 
     primary_ip, primary_score = sorted_scores[0]
     secondary_ip, secondary_score = sorted_scores[1]
 
     # ----------------------------
-    # MAIN RECOMMENDATIONS
+    # MAIN RESULTS
     # ----------------------------
     st.success(f"🏆 Primary Recommendation: **{primary_ip}** (score {primary_score})")
     st.info(f"✨ Secondary Consideration: **{secondary_ip}** (score {secondary_score})")
@@ -107,7 +142,7 @@ if st.button("Show My IP Recommendation", use_container_width=True):
     ip_info = rationale_data.get(primary_ip, {})
 
     st.write("### 📘 Description")
-    st.write(ip_info.get("description", "No description found."))
+    st.write(ip_info.get("description", "No description available."))
 
     st.write("### 🧭 Recommended Next Steps")
     for step in ip_info.get("next_steps", []):
@@ -126,24 +161,24 @@ if st.button("Show My IP Recommendation", use_container_width=True):
     risk_map = {
         "Patent": [
             "Public disclosure before filing destroys novelty.",
-            "International filings become expensive very quickly.",
-            "Maintenance fees are required to keep protection active."
+            "International filings become expensive quickly.",
+            "Maintenance fees required to keep protection active."
         ],
         "Design": [
-            "Protects only appearance, not function.",
+            "Protects appearance, not function.",
             "Disclosure before filing destroys novelty."
         ],
         "Trademark": [
-            "Generic or descriptive names cannot be registered.",
-            "Conflicts with existing trademarks can block approval."
+            "Descriptive or generic names cannot be registered.",
+            "Prior conflicting trademarks may block approval."
         ],
         "Copyright": [
-            "Protects expression, not ideas or concepts.",
-            "Code algorithms are not protected — only written form."
+            "Protects only expression, not ideas or algorithms.",
+            "Does not protect underlying concepts or logic."
         ],
         "Trade Secret": [
-            "Protection ends immediately if secrecy is lost.",
-            "Difficult to enforce without strong internal processes."
+            "Protection ends if secrecy is lost.",
+            "Must implement strict internal confidentiality processes."
         ]
     }
 
@@ -160,3 +195,8 @@ if st.button("Show My IP Recommendation", use_container_width=True):
         "consult a registered IP attorney or IP specialist."
     )
 
+
+# ------------------------------------------------------
+# CLOSE SECTION WRAPPER
+# ------------------------------------------------------
+st.markdown("</div>", unsafe_allow_html=True)
