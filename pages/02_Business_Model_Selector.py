@@ -37,13 +37,13 @@ st.set_page_config(page_title="Business Model Selector", layout="wide")
 # Use same hero as home + TRL
 hero_html = textwrap.dedent("""
 <div class="hero">
-    <div class="hero-glow"></div>
-    <div class="hero-particles"></div>
+<div class="hero-glow"></div>
+<div class="hero-particles"></div>
 
-    <div class="hero-content">
-        <h1 class="hero-title">Business Model Selector</h1>
-        <p class="hero-sub">Find the best business model patterns for your innovation.</p>
-    </div>
+<div class="hero-content">
+<h1 class="hero-title">Business Model Selector</h1>
+<p class="hero-sub">Find the best business model patterns for your innovation.</p>
+</div>
 </div>
 """)
 st.markdown(hero_html, unsafe_allow_html=True)
