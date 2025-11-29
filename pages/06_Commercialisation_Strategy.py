@@ -156,7 +156,6 @@ if st.button("🔍 Generate My Strategy Mix", use_container_width=True):
                     st.markdown(f"- {t}")
                 st.markdown(f"**Innovation Fit:** {blk['innovation']}")
 
-    st.caption("A downloadable Go-to-Market plan (phase 2) will include positioning, segmentation, KPIs and timelines.")
 
 
 # ------------------------------------------------------
