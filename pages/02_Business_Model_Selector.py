@@ -154,10 +154,10 @@ if st.session_state["secondary_done"]:
     <p><b>Tag Fit:</b> {overlap} aligned traits</p>
     <p><b>Success Rate:</b> {int(bm['success_score']*100)}%</p>
     <p><b>Maturity:</b> {bm['maturity_level'].title()}</p>
-    </div>
-    """
+</div>
+"""
 
-    st.markdown(tile, unsafe_allow_html=True)
+st.markdown(tile, unsafe_allow_html=True)
 
 
     st.markdown("</div>", unsafe_allow_html=True)
