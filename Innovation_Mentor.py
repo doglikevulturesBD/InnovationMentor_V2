@@ -59,7 +59,7 @@ tiles_html = textwrap.dedent("""
 
 </div>
 """)
-st.markdown(hero_html, unsafe_allow_html=True)
+st.markdown(tiles_html, unsafe_allow_html=True)
 # -------------------------------------
 # ABOUT SECTION
 # -------------------------------------
