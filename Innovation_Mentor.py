@@ -42,15 +42,20 @@ st.markdown(hero_html, unsafe_allow_html=True)
 # FEATURE TILES
 # -------------------------------------
 tiles_html = textwrap.dedent("""
-<div class="tile-container">
-<div class="glow-tile">{trl}</div>
-<div class="glow-tile">{models}</div>
-<div class="glow-tile">{finance}</div>
-<div class="glow-tile">{marketing}</div>
-<div class="glow-tile">{risk}</div>
-<div class="glow-tile">{export}</div>
+tiles_html = """
+<div class="holo-container">
+<a class="holo-tile" href="/01_TRL_Assessment">🔬 TRL Assessment</a>
+<a class="holo-tile" href="/02_Business_Models">📦 Business Models</a>
+<a class="holo-tile" href="/03_Finance_Tools">💸 Financial Tools</a>
+<a class="holo-tile" href="/04_Marketing_Strategy">📢 Marketing Strategy</a>
+<a class="holo-tile" href="/05_Risk_Dashboard">⚠️ Risk Dashboard</a>
+<a class="holo-tile" href="/06_Export_Tools">📤 Export Tools</a>
+
 </div>
 """)
+
+st.markdown(tiles_html, unsafe_allow_html=True)
+
 
 tiles_html = tiles_html.format(
     trl=st.page_link("pages/01_TRL_Calculator.py", label="TRL Assessment", icon="🔬"),
