@@ -57,17 +57,6 @@ tiles_html = textwrap.dedent("""
 st.markdown(tiles_html, unsafe_allow_html=True)
 
 
-tiles_html = tiles_html.format(
-    trl=st.page_link("pages/01_TRL_Calculator.py", label="TRL Assessment", icon="🔬"),
-    models=st.page_link("pages/02_Business_Model_Selector.py", label="Business Models", icon="📦"),
-    finance=st.page_link("pages/03_Financial_Projection.py", label="Financial Tools", icon="💸"),
-    marketing=st.page_link("pages/05_Market_Study_Guide.py", label="Marketing Strategy", icon="📢"),
-    risk=st.page_link("pages/08_Risk_Dashboard.py", label="Risk Dashboard", icon="⚠️"),
-    export=st.page_link("pages/12_Export_Report.py", label="Export Tools", icon="📤"),
-)
-
-st.markdown(tiles_html, unsafe_allow_html=True)
-
 # -------------------------------------
 # ABOUT SECTION
 # -------------------------------------
