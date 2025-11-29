@@ -1,25 +1,63 @@
+# ============================================
+# INNOVATION MENTOR APP
+# PAGE: Feedback (Tile Edition)
+# ============================================
+
 import streamlit as st
 
-st.set_page_config(page_title="Feedback", layout="wide")
+# ----------------------------------------------------
+# PAGE CONFIG
+# ----------------------------------------------------
+st.set_page_config(
+    page_title="Feedback",
+    page_icon="💬",
+    layout="wide"
+)
 
-# -------------------------------
-# HEADER
-# -------------------------------
-st.markdown("""
-<h1 style='text-align:center; margin-bottom:0;'>💬 Feedback & Suggestions</h1>
-<p style='text-align:center; color:#555; font-size:17px;'>
-Your input helps shape the Innovation Mentor Platform.  
-This MVP is evolving, and your feedback determines what we build next.
+# ----------------------------------------------------
+# LOAD GLOBAL CSS
+# ----------------------------------------------------
+def local_css(file_name: str):
+    try:
+        with open(file_name, "r") as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    except:
+        pass
+
+local_css("styles.css")
+
+# ----------------------------------------------------
+# HERO BANNER
+# ----------------------------------------------------
+hero_html = """
+<div class="hero sub-hero">
+<div class="hero-glow"></div>
+<div class="hero-particles"></div>
+
+<div class="hero-content">
+<h1 class="hero-title">💬 Feedback & Suggestions</h1>
+<p class="hero-sub">
+            Your input directly shapes the future development of the Innovation Mentor platform.
 </p>
-""", unsafe_allow_html=True)
+</div>
+</div>
+"""
+st.markdown(hero_html, unsafe_allow_html=True)
 
+# ----------------------------------------------------
+# CONTENT WRAPPER
+# ----------------------------------------------------
+st.markdown("<div class='section-block'>", unsafe_allow_html=True)
+
+st.caption("Help us improve this MVP by sharing your insights, suggestions, and feature requests.")
 st.markdown("---")
 
-# -------------------------------
-# EMBED GOOGLE FORM
-# -------------------------------
-st.subheader("📝 Full Feedback Form")
+# ----------------------------------------------------
+# TILE: GOOGLE FORM EMBED
+# ----------------------------------------------------
+st.markdown("<div class='im-tile'>", unsafe_allow_html=True)
 
+st.markdown("## 📝 Full Feedback Form")
 st.markdown("Please complete the detailed form below:")
 
 st.components.v1.html(
@@ -33,17 +71,27 @@ st.components.v1.html(
     scrolling=True
 )
 
+st.markdown("</div>", unsafe_allow_html=True)
+
 st.markdown("---")
 
-# -------------------------------
-# FOOTER DISCLAIMER
-# -------------------------------
+# ----------------------------------------------------
+# FOOTER IN TILE
+# ----------------------------------------------------
+st.markdown("<div class='im-tile' style='text-align:center;'>", unsafe_allow_html=True)
+
 st.markdown("""
-<br>
-<div style='font-size:12px; color:#777; text-align:center; border-top:1px solid #ddd; padding-top:15px;'>
-This platform is an MVP and is under active development.  
-Feedback submitted through this form is stored securely by Google Forms/Google Workspace.  
-For legal notices, please refer to the Legal section of the platform.
-</div>
-<br><br>
-""", unsafe_allow_html=True)
+### ℹ️ Transparency Notice
+
+Feedback submitted through this form is securely stored via **Google Forms / Google Workspace**.  
+No personal identifying information is collected unless you explicitly choose to provide it.
+
+For legal details, please refer to the **Legal & Compliance** section of the platform.
+""")
+
+st.markdown("</div>", unsafe_allow_html=True)
+
+# ----------------------------------------------------
+# CLOSE WRAPPER
+# ----------------------------------------------------
+st.markdown("</div>", unsafe_allow_html=True)
