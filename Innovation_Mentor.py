@@ -44,12 +44,17 @@ st.markdown(hero_html, unsafe_allow_html=True)
 tiles_html = textwrap.dedent("""
 
 <div class="holo-container">
-<a class="holo-tile" href="/01_TRL_Assessment">🔬 TRL Assessment</a>
-<a class="holo-tile" href="/02_Business_Models">📦 Business Models</a>
-<a class="holo-tile" href="/03_Finance_Tools">💸 Financial Tools</a>
-<a class="holo-tile" href="/04_Marketing_Strategy">📢 Marketing Strategy</a>
-<a class="holo-tile" href="/05_Risk_Dashboard">⚠️ Risk Dashboard</a>
-<a class="holo-tile" href="/06_Export_Tools">📤 Export Tools</a>
+<a class="holo-tile" href="/01_TRL_Calculator"> TRL Calculator</a>
+<a class="holo-tile" href="/02_Business_Model_Selector">Business Models</a>
+<a class="holo-tile" href="/03_Finanancial_Projection">Financial Projection</a>
+<a class="holo-tile" href="/05_Market_Study_Guide">📢 Marketing Strategy</a>
+<a class="holo-tile" href="/06_Commercialisation_Strategy">Commercialisation Strategy</a>
+<a class="holo-tile" href="/07_IP_Management">IP Management</a>
+<a class="holo-tile" href="/08_Risk_Dashboard">Risk Dashboard</a>
+<a class="holo-tile" href="/09_Financial_Options">Financial Options</a>
+<a class="holo-tile" href="/10_Legal_and_Compliance">Legal Compliance</a>
+<a class="holo-tile" href="/11_Feedback">Feedback</a>
+<a class="holo-tile" href="/02_Export_Report">Export Tools</a>
 
 </div>
 """)
