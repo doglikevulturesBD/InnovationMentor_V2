@@ -321,6 +321,28 @@ button[kind="secondary"]:hover {
     transform: translateY(-3px);
     box-shadow: 0 0 25px rgba(0,255,255,0.25);
 }
+.im-tile {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(120,150,255,0.25);
+    border-radius: 14px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 0 18px rgba(120,150,255,0.10);
+    backdrop-filter: blur(4px);
+}
+
+.im-tile h3, .im-tile h4 {
+    margin-top: 0;
+    color: #dbe6ff !important;
+}
+
+.im-tile ul {
+    padding-left: 20px;
+}
+
+.im-tile li {
+    margin-bottom: 6px;
+}
 
 /* FOOTER */
 .footer {
