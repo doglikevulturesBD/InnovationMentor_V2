@@ -141,18 +141,22 @@ if st.session_state["secondary_done"]:
     st.markdown("<div class='section-block'>", unsafe_allow_html=True)
     st.markdown("## 🔥 Top 5 Recommended Business Models")
 
-    for bm, score in top5:
-        st.markdown(f"""
-        <div class="holo-card">
-            <h3>{bm['name']} — <span style='opacity:0.7;'>Score {score:.2f}</span></h3>
-            <p>{bm['description']}</p>
-            <p><b>Tag Fit:</b> Shares {len(set(bm['tags']) & set(archetype_tags))} aligned traits.</p>
-            <p><b>Success Rate:</b> {int(bm['success_score']*100)}%</p>
-            <p><b>Maturity:</b> {bm['maturity_level'].title()}</p>
-        </div>
-        """, unsafe_allow_html=True)
+   for bm, score in top5:
+    overlap = len(set(bm["tags"]) & set(archetype_tags))
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    tile = f"""
+    <div class="bm-tile">
+        <h3>{bm['name']}</h3>
+        <p><b>Score:</b> {score:.2f}</p>
+        <p>{bm['description']}</p>
+        <p><b>Tag Fit:</b> {overlap} aligned traits</p>
+        <p><b>Success Rate:</b> {int(bm['success_score']*100)}%</p>
+        <p><b>Maturity:</b> {bm['maturity_level'].title()}</p>
+    </div>
+    """
+
+    st.markdown(tile, unsafe_allow_html=True)
+
 
     # Expand full list
     with st.expander("📚 See all 70 business models"):
