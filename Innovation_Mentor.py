@@ -44,12 +44,12 @@ st.markdown(hero_html, unsafe_allow_html=True)
 tiles_html = textwrap.dedent("""
 <div class="tile-container">
 
-    <a class="glow-tile" href="01_TRL_Assessment">TRL Assessment</a>
-    <a class="glow-tile" href="02_Business_Models">Business Models</a>
-    <a class="glow-tile" href="03_Finance_Tools">Financial Tools</a>
-    <a class="glow-tile" href="04_Marketing_Strategy">Marketing Strategy</a>
-    <a class="glow-tile" href="05_Risk_Dashboard">Risk Dashboard</a>
-    <a class="glow-tile" href="06_Export_Tools">Export Tools</a>
+<a class="glow-tile" href="01_TRL_Assessment">TRL Assessment</a>
+<a class="glow-tile" href="02_Business_Models">Business Models</a>
+<a class="glow-tile" href="03_Finance_Tools">Financial Tools</a>
+<a class="glow-tile" href="04_Marketing_Strategy">Marketing Strategy</a>
+<a class="glow-tile" href="05_Risk_Dashboard">Risk Dashboard</a>
+<a class="glow-tile" href="06_Export_Tools">Export Tools</a>
 
 </div>
 """)
