@@ -43,20 +43,25 @@ st.markdown(hero_html, unsafe_allow_html=True)
 # -------------------------------------
 tiles_html = textwrap.dedent("""
 <div class="tile-container">
-
-<a class="glow-tile" href="01_TRL_Assessment">TRL Assessment</a>
-<a class="glow-tile" href="02_Business_Models">Business Models</a>
-<a class="glow-tile" href="03_Finance_Tools">Financial Tools</a>
-<a class="glow-tile" href="04_Marketing_Strategy">Marketing Strategy</a>
-<a class="glow-tile" href="05_Risk_Dashboard">Risk Dashboard</a>
-<a class="glow-tile" href="06_Export_Tools">Export Tools</a>
-
+<div class="glow-tile">{trl}</div>
+<div class="glow-tile">{models}</div>
+<div class="glow-tile">{finance}</div>
+<div class="glow-tile">{marketing}</div>
+<div class="glow-tile">{risk}</div>
+<div class="glow-tile">{export}</div>
 </div>
-""")
+"""
+
+tiles_html = tiles_html.format(
+    trl=st.page_link("pages/01_TRL_Assessment.py", label="TRL Assessment", icon="🔬"),
+    models=st.page_link("pages/02_Business_Models.py", label="Business Models", icon="📦"),
+    finance=st.page_link("pages/03_Finance_Tools.py", label="Financial Tools", icon="💸"),
+    marketing=st.page_link("pages/04_Marketing_Strategy.py", label="Marketing Strategy", icon="📢"),
+    risk=st.page_link("pages/05_Risk_Dashboard.py", label="Risk Dashboard", icon="⚠️"),
+    export=st.page_link("pages/06_Export_Tools.py", label="Export Tools", icon="📤"),
+)
 
 st.markdown(tiles_html, unsafe_allow_html=True)
-
-st.markdown("<br><br>", unsafe_allow_html=True)
 
 # -------------------------------------
 # ABOUT SECTION
