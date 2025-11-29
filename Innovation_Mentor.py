@@ -46,7 +46,7 @@ tiles_html = textwrap.dedent("""
 <div class="holo-container">
 <a class="holo-tile" href="TRL_Calculator"> TRL Calculator</a>
 <a class="holo-tile" href="/Business_Model_Selector">Business Models</a>
-<a class="holo-tile" href="/Finanancial_Projection">Financial Projection</a>
+<a class="holo-tile" href="/Financial_Projection">Financial Projection</a>
 <a class="holo-tile" href="/Market_Study_Guide">Marketing Strategy</a>
 <a class="holo-tile" href="/Commercialisation_Strategy">Commercialisation Strategy</a>
 <a class="holo-tile" href="/IP_Management">IP Management</a>
