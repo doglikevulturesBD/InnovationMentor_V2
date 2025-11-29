@@ -299,3 +299,4 @@ with tabs[3]:
                        file_name="financial_projection_summary.pdf",
                        mime="application/pdf",
                        use_container_width=True)
+st.markdown("</div>", unsafe_allow_html=True)
