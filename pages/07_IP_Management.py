@@ -43,19 +43,6 @@ hero_html = """
 st.markdown(hero_html, unsafe_allow_html=True)
 
 
-# ------------------------------------------------------
-# OPEN SECTION WRAPPER
-# ------------------------------------------------------
-st.markdown("<div class='section-block'>", unsafe_allow_html=True)
-
-st.caption("A guided tool to help innovators determine the best IP protection strategy.")
-
-st.markdown("""
-This module evaluates the nature of your innovation and recommends the most suitable form  
-of **intellectual property protection** — including patents, designs, trademarks, and more.
-""")
-
-st.markdown("---")
 
 
 # ------------------------------------------------------
