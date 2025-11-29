@@ -1,153 +1,118 @@
 import streamlit as st
 
+# -------------------------------------
+# PAGE CONFIG
+# -------------------------------------
 st.set_page_config(
-    page_title="Innovation Mentor Platform",
-    layout="wide",
-    page_icon="💡"
+    page_title="Innovation Mentor",
+    page_icon="💡",
+    layout="wide"
 )
 
-# Load custom CSS FIRST
+# -------------------------------------
+# LOAD STYLESHEET CSS
+# -------------------------------------
 def local_css(file_name):
     with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+        css = f"<style>{f.read()}</style>"
+        st.markdown(css, unsafe_allow_html=True)
 
-local_css("styles.css")
+local_css("styles.css")      # ← ensure styles.css is next to this file
 
-# Load additional CSS SECOND
+
+# -------------------------------------
+# HERO BANNER
+# -------------------------------------
 st.markdown("""
-<style>
-.big-title { font-size: 46px !important; font-weight: 800 !important; margin-bottom: 5px; }
-.subtitle { font-size: 19px !important; color: #555; margin-bottom: 25px; }
-.section-header { font-size: 26px !important; font-weight: 700 !important; margin-top: 25px; }
-.body-text { font-size: 17px !important; color: #444; line-height: 1.6; }
-.footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #dddddd; color: #666; font-size: 13px; }
-.footer a { color: #0073e6; text-decoration: none; }
-</style>
-""", unsafe_allow_html=True)
+<div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-particles"></div>
 
-
-# ---------------------------
-# CUSTOM STYLES
-# ---------------------------
-st.markdown("""
-<style>
-.big-title {
-    font-size: 46px !important;
-    font-weight: 800 !important;
-    margin-bottom: 5px;
-}
-.subtitle {
-    font-size: 19px !important;
-    color: #555;
-    margin-bottom: 25px;
-}
-.section-header {
-    font-size: 26px !important;
-    font-weight: 700 !important;
-    margin-top: 25px;
-}
-.body-text {
-    font-size: 17px !important;
-    color: #444;
-    line-height: 1.6;
-}
-.footer {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #dddddd;
-    color: #666;
-    font-size: 13px;
-}
-.footer a {
-    color: #0073e6;
-    text-decoration: none;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
-# ---------------------------
-# HEADER
-# ---------------------------
-st.markdown('<div class="big-title">Innovation Mentor Platform</div>', unsafe_allow_html=True)
-st.markdown(
-    '<div class="subtitle">A lightweight, structured, and evolving support tool to help innovators strengthen proposals and navigate commercialisation.</div>',
-    unsafe_allow_html=True
-)
-
-st.markdown("---")
-
-# ---------------------------
-# ABOUT THE PLATFORM
-# ---------------------------
-st.markdown('<div class="section-header">About This Platform</div>', unsafe_allow_html=True)
-
-st.markdown("""
-<div class="body-text">
-The Innovation Mentor Platform is designed to help innovators, entrepreneurs, researchers, and portfolio managers think more clearly and make better decisions.
-It provides structured guidance across the core areas required for strong innovation proposals and early-stage commercialisation.
-
-This is an evolving tool, currently in **MVP testing**, and features will continue to improve over time.
+    <div class="hero-content">
+        <h1 class="hero-title">Innovation Mentor</h1>
+        <p class="hero-sub">A future-ready platform for innovators, startups, and portfolio managers.</p>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
-# ---------------------------
-# MODULE EXPLANATIONS
-# ---------------------------
-st.markdown('<div class="section-header">What Each Module Does</div>', unsafe_allow_html=True)
 
+# -------------------------------------
+# FEATURE TILES
+# -------------------------------------
 st.markdown("""
-### TRL Assessment  
-A structured tool to help you identify your correct Technology Readiness Level (TRL) based on international TRL definitions.  
-It ensures proposers and evaluators speak the same language about technical maturity.
+<div class="tile-container">
 
-### Business Model Selector  
-A guided journey that analyses your innovation and identifies the best-aligned business models.  
-Using structured logic and data, it evaluates over 70 business model patterns to help shape your route to market.
+    <a href="01_TRL_Assessment" class="glow-tile">TRL Assessment</a>
+    <a href="02_Business_Models" class="glow-tile">Business Models</a>
+    <a href="03_Finance_Tools" class="glow-tile">Financial Tools</a>
+    <a href="04_Marketing_Strategy" class="glow-tile">Marketing Strategy</a>
+    <a href="05_Risk_Dashboard" class="glow-tile">Risk Dashboard</a>
+    <a href="06_Export_Tools" class="glow-tile">Export Tools</a>
 
-### Financial Projections  
-Simple, early-stage financial thinking. Helps you explore revenue potential, basic cost structures, and realistic growth scenarios.
-
-### IP Management  
-A place to record your intellectual property foundations, improvements, protection strategies, and novelty claims.
-
-### Commercialisation Strategy  
-Helps you define your target market, value proposition, pricing approach, distribution channels, and competitive logic.
-
-### Risk Dashboard  
-Structured analysis of technical, operational, financial, and market risks — and possible mitigation strategies.
-
----
-
-These modules are meant to support clarity and improve the quality of proposals and innovation decisions.
-They are not a final authority, but a **thinking partner** in your innovation journey.
-""")
-
-st.markdown("---")
-
-# ---------------------------
-# MVP NOTE
-# ---------------------------
-st.markdown('<div class="section-header">MVP Status</div>', unsafe_allow_html=True)
-
-st.markdown("""
-<div class="body-text">
-This platform is currently operating as an **MVP (Minimum Viable Product)**.
-Features, scoring logic, and guidance systems will be enhanced in future iterations as real-world usage data,
-user feedback, and validation insights are incorporated.
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("---")
+st.markdown("<br><br>", unsafe_allow_html=True)
 
-# ---------------------------
-# LEGAL DISCLAIMER
-# ---------------------------
+
+# -------------------------------------
+# ABOUT SECTION
+# -------------------------------------
+st.markdown("""
+<div class="section-block">
+    <h2 class="section-title">About the Platform</h2>
+    <p class="section-text">
+        The Innovation Mentor Platform is designed to support innovators, researchers, entrepreneurs,
+        and portfolio managers with structured tools for clarity and strong decision-making.
+        It simplifies complex processes such as TRL assessment, business model selection,
+        financial outlooks, risk analysis, and early commercialisation strategy development.
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
+
+# -------------------------------------
+# MODULE OVERVIEW
+# -------------------------------------
+st.markdown("""
+<div class="section-block">
+    <h2 class="section-title">What’s Inside</h2>
+
+    <ul class="feature-list">
+        <li><b>TRL Assessment:</b> A structured guide aligned with global TRL definitions.</li>
+        <li><b>Business Model Logic:</b> Matches innovations to 70+ business model patterns.</li>
+        <li><b>Financial Tools:</b> Helps explore revenue, costs, and viability.</li>
+        <li><b>Marketing Strategy:</b> Market segmentation, value prop and channels.</li>
+        <li><b>Risk Dashboard:</b> Evaluates technical, operational, market and financial risks.</li>
+        <li><b>Export Tools:</b> Generate summaries and shareable formats.</li>
+    </ul>
+</div>
+""", unsafe_allow_html=True)
+
+
+# -------------------------------------
+# MVP DISCLAIMER
+# -------------------------------------
+st.markdown("""
+<div class="section-block">
+    <h2 class="section-title">MVP Notice</h2>
+    <p class="section-text">
+        This platform is currently an MVP. Features, logic, scoring and AI guidance
+        will evolve over time as real users test and provide input.
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
+
+# -------------------------------------
+# FOOTER
+# -------------------------------------
 st.markdown("""
 <div class="footer">
-<b>Disclaimer:</b><br>
-This platform provides structured guidance only. It is not a substitute for legal, financial, regulatory, or IP advice.
-All decisions made using this platform remain the responsibility of the user.
-Refer to the <a href="./Legal_and_Compliance">Legal & Compliance Section</a> for full details.
+    <p>© 2025 Innovation Mentor</p>
+    <p class="footer-links">
+        <a href="https://innovationmentor.streamlit.app" target="_blank">App</a> •
+        <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </p>
 </div>
 """, unsafe_allow_html=True)
