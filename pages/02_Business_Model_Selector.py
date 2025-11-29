@@ -21,13 +21,13 @@ local_css("styles.css")
 # --------------------------------------
 hero_html = """
 <div class="hero">
-    <div class="hero-glow"></div>
-    <div class="hero-particles"></div>
+<div class="hero-glow"></div>
+<div class="hero-particles"></div>
 
-    <div class="hero-content">
-        <h1 class="hero-title">Business Model Selector</h1>
-        <p class="hero-sub">Assists in selecting a business model.</p>
-    </div>
+<div class="hero-content">
+<h1 class="hero-title">Business Model Selector</h1>
+<p class="hero-sub">Assists in selecting a business model.</p>
+</div>
 </div>
 """
 st.markdown(hero_html, unsafe_allow_html=True)
@@ -146,17 +146,17 @@ if st.session_state["secondary_done"]:
     for bm, score in top5:
         overlap = len(set(bm["tags"]) & set(archetype_tags))
 
-        tile = f"""
-        <div class="bm-tile">
-            <h3>{bm['name']}</h3>
-            <p><b>Score:</b> {score:.2f}</p>
-            <p>{bm['description']}</p>
-            <p><b>Tag Fit:</b> {overlap} aligned traits</p>
-            <p><b>Success Rate:</b> {int(bm['success_score']*100)}%</p>
-            <p><b>Maturity:</b> {bm['maturity_level'].title()}</p>
-        </div>
-        """
-        st.markdown(tile, unsafe_allow_html=True)
+    tile = f"""
+    <div class="bm-tile">
+    <h3>{bm['name']}</h3>
+    <p><b>Score:</b> {score:.2f}</p>
+    <p>{bm['description']}</p>
+    <p><b>Tag Fit:</b> {overlap} aligned traits</p>
+    <p><b>Success Rate:</b> {int(bm['success_score']*100)}%</p>
+    <p><b>Maturity:</b> {bm['maturity_level'].title()}</p>
+    </div>
+    """
+    st.markdown(tile, unsafe_allow_html=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
 
