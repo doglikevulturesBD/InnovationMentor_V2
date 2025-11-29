@@ -1,5 +1,6 @@
 import streamlit as st
 import json
+import textwrap
 
 # -------------------------------
 # Load Data
@@ -10,13 +11,11 @@ with open("data/business_models.json", "r") as f:
 with open("data/archetype_tags.json", "r") as f:
     ARCHETYPE_TAGS = json.load(f)
 
-
 MATURITY_MAP = {
     "emerging": 0.3,
     "established": 0.6,
     "dominant": 1.0
 }
-
 
 # -------------------------------
 # Scoring Function
@@ -31,7 +30,27 @@ def score_model(model, archetype_tags):
 
 
 # -------------------------------
-# State Init
+# Page Setup + Hero
+# -------------------------------
+st.set_page_config(page_title="Business Model Selector", layout="wide")
+
+# Use same hero as home + TRL
+hero_html = textwrap.dedent("""
+<div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-particles"></div>
+
+    <div class="hero-content">
+        <h1 class="hero-title">Business Model Selector</h1>
+        <p class="hero-sub">Find the best business model patterns for your innovation.</p>
+    </div>
+</div>
+""")
+st.markdown(hero_html, unsafe_allow_html=True)
+
+
+# -------------------------------
+# Session State
 # -------------------------------
 if "archetype" not in st.session_state:
     st.session_state["archetype"] = None
@@ -41,32 +60,37 @@ if "secondary_done" not in st.session_state:
 
 
 # -------------------------------
-# UI Step 1: Choose Archetype
+# STEP 1 — Archetype Selection
 # -------------------------------
-st.title("Business Model Selector")
-
 if st.session_state["archetype"] is None:
-    st.subheader("1. Choose your Innovator Archetype")
-    choice = st.radio(
-        "Select the profile that best matches you:",
-        list(ARCHETYPE_TAGS.keys())
-    )
 
-    if st.button("Continue"):
+    st.markdown("<div class='section-block'>", unsafe_allow_html=True)
+    st.markdown("## 1️⃣ Choose Your Innovator Archetype")
+    st.caption("Each archetype carries strategic traits used for matching.")
+
+    choice = st.radio("Select your profile:", list(ARCHETYPE_TAGS.keys()))
+
+    if st.button("Continue ➜", use_container_width=True):
         st.session_state["archetype"] = choice
         st.rerun()
 
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+# -------------------------------
+# STEP 2 — Secondary Profiling
+# -------------------------------
 else:
     archetype = st.session_state["archetype"]
-    st.success(f"Selected Archetype: **{archetype}**")
-
     archetype_tags = ARCHETYPE_TAGS[archetype]
 
-    # -------------------------------
-    # UI Step 2: Secondary Questions
-    # -------------------------------
+    st.success(f"### Selected Archetype: **{archetype}**")
+
     if not st.session_state["secondary_done"]:
-        st.subheader("2. Refine your profile")
+
+        st.markdown("<div class='section-block'>", unsafe_allow_html=True)
+        st.markdown("## 2️⃣ Refine Your Profile")
+        st.caption("These factors influence the scoring.")
 
         q1 = st.selectbox(
             "How fast do you want to commercialize?",
@@ -79,53 +103,57 @@ else:
         )
 
         q3 = st.selectbox(
-            "What is your available startup capital?",
+            "Available startup capital?",
             ["Very low (< R50k)", "Medium", "High"]
         )
 
-        if st.button("Generate Recommendations"):
-            st.session_state["secondary_done"] = True
-            st.session_state["q1"] = q1
-            st.session_state["q2"] = q2
-            st.session_state["q3"] = q3
+        if st.button("Generate Recommendations 🚀", use_container_width=True):
+            st.session_state.update({
+                "secondary_done": True,
+                "q1": q1,
+                "q2": q2,
+                "q3": q3
+            })
             st.rerun()
 
-    # -------------------------------
-   # -------------------------------
-# Step 3: Ranking
+        st.markdown("</div>", unsafe_allow_html=True)
+
+
+# -------------------------------
+# STEP 3 — Recommendations
 # -------------------------------
 if st.session_state["secondary_done"]:
-    st.subheader("3. Recommended Business Models")
 
-    # ---- Score models ----
-    results = []
-    for model in BUSINESS_MODELS:
-        score = score_model(model, archetype_tags)
-        results.append((model, score))
-
-    results = sorted(results, key=lambda x: x[1], reverse=True)
+    # Score models
+    results = [(m, score_model(m, archetype_tags)) for m in BUSINESS_MODELS]
+    results.sort(key=lambda x: x[1], reverse=True)
     top5 = results[:5]
 
-    # -------------------------------
-    # Display Top 5 WITH full explanation
-    # -------------------------------
-    st.markdown("## 🔥 Top 5 Best-Fit Models")
+    st.markdown("<div class='section-block'>", unsafe_allow_html=True)
+    st.markdown("## 🔥 Top 5 Recommended Business Models")
 
     for bm, score in top5:
-        st.markdown(f"### {bm['name']} — **Score: {score:.2f}**")
-        st.markdown(f"**Description:** {bm['description']}")
-        st.markdown(
-            f"**Fit Quality:** Shares {len(set(bm['tags']) & set(archetype_tags))} strategic traits with your archetype."
-        )
-        st.markdown(f"**Success Rate:** {int(bm['success_score'] * 100)}%")
-        st.markdown(f"**Maturity:** {bm['maturity_level'].title()}")
-        st.markdown("---")
+        st.markdown(f"""
+        <div class="holo-card">
+            <h3>{bm['name']} — <span style='opacity:0.7;'>Score {score:.2f}</span></h3>
+            <p>{bm['description']}</p>
+            <p><b>Tag Fit:</b> Shares {len(set(bm['tags']) & set(archetype_tags))} aligned traits.</p>
+            <p><b>Success Rate:</b> {int(bm['success_score']*100)}%</p>
+            <p><b>Maturity:</b> {bm['maturity_level'].title()}</p>
+        </div>
+        """, unsafe_allow_html=True)
 
-    # -------------------------------
-    # Full list of all models (unchanged)
-    # -------------------------------
-    with st.expander("See all 70 business models"):
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # Expand full list
+    with st.expander("📚 See all 70 business models"):
         for bm in BUSINESS_MODELS:
-            st.markdown(f"#### {bm['name']}")
-            st.markdown(bm["description"])
+            st.markdown(f"### {bm['name']}")
+            st.write(bm["description"])
             st.caption(f"Tags: {', '.join(bm['tags'])}")
+
+    st.divider()
+    if st.button("🔄 Start Over", use_container_width=True):
+        st.session_state.clear()
+        st.rerun()
+
