@@ -42,7 +42,7 @@ st.markdown(hero_html, unsafe_allow_html=True)
 # FEATURE TILES
 # -------------------------------------
 tiles_html = textwrap.dedent("""
-tiles_html = """
+
 <div class="holo-container">
 <a class="holo-tile" href="/01_TRL_Assessment">🔬 TRL Assessment</a>
 <a class="holo-tile" href="/02_Business_Models">📦 Business Models</a>
