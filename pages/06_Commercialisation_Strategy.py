@@ -50,18 +50,7 @@ st.markdown(hero_html, unsafe_allow_html=True)
 st.markdown("<div class='section-block'>", unsafe_allow_html=True)
 
 
-# ------------------------------------------------------
-# PAGE INTRO
-# ------------------------------------------------------
-st.caption("Identify the most suitable commercialisation route and top marketing approaches for launch.")
 
-st.markdown("""
-This compact advisor helps you narrow down **how** you should commercialise  
-(licensing, direct sales, partnerships, tender-driven, platform model, etc.)  
-and the **marketing strategies** that best fit your TRL, customer type, and market conditions.
-""")
-
-st.markdown("---")
 
 # ------------------------------------------------------
 # LOAD QUESTIONNAIRE
