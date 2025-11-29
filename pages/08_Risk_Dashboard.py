@@ -214,42 +214,44 @@ else:
     st.markdown("</div>", unsafe_allow_html=True)
     st.markdown("---")
 
-    # Detailed tiles per risk
-    for risk_type, score in top_risks:
-        entry = library.get(risk_type, {})
+  # Detailed tiles per risk
+for risk_type, score in top_risks:
+    entry = library.get(risk_type, {})
 
-        indicators = entry.get("indicators", [])
-        mitigation = entry.get("mitigation", [])
-        severity = entry.get("severity", "—")
-        category = entry.get("category", "—")
+    indicators = entry.get("indicators", [])
+    mitigation = entry.get("mitigation", [])
+    severity = entry.get("severity", "—")
+    category = entry.get("category", "—")
 
-        indicators_html = ""
-        if indicators:
-            indicators_html = "<ul>" + "".join([f"<li>{i}</li>" for i in indicators]) + "</ul>"
+    # Build sections cleanly (avoid inline f-string conditions)
+    indicators_block = ""
+    if indicators:
+        indicators_block = "<h4>Indicators</h4><ul>" + "".join([f"<li>{i}</li>" for i in indicators]) + "</ul>"
 
-        mitigation_html = ""
-        if mitigation:
-            mitigation_html = "<ul>" + "".join([f"<li>{m}</li>" for m in mitigation]) + "</ul>"
+    mitigation_block = ""
+    if mitigation:
+        mitigation_block = "<h4>Mitigation</h4><ul>" + "".join([f"<li>{m}</li>" for m in mitigation]) + "</ul>"
 
-        why_html = ""
-        if rule_hits.get(risk_type):
-            why_html = "<ul>" + "".join([f"<li>{h}</li>" for h in rule_hits[risk_type]]) + "</ul>"
+    why_block = ""
+    if rule_hits.get(risk_type):
+        why_block = "<h4>Why this scored high</h4><ul>" + "".join([f"<li>{h}</li>" for h in rule_hits[risk_type]]) + "</ul>"
 
-        st.markdown(f"""
-        <div class="im-tile">
-            <h3>⚠️ {risk_type} — Score {score}</h3>
-            <p><b>Category:</b> {category} &nbsp; | &nbsp; <b>Baseline Severity:</b> {severity}</p>
+    # Now build full tile
+    tile_html = f"""
+    <div class="im-tile">
+        <h3>⚠️ {risk_type} — Score {score}</h3>
+        <p><b>Category:</b> {category} &nbsp; | &nbsp; <b>Baseline Severity:</b> {severity}</p>
 
-            <h4>Description</h4>
-            <p>{entry.get("description", "—")}</p>
+        <h4>Description</h4>
+        <p>{entry.get("description", "—")}</p>
 
-            {"<h4>Indicators</h4>" + indicators_html if indicators_html else ""}
+        {indicators_block}
+        {mitigation_block}
+        {why_block}
+    </div>
+    """
 
-            {"<h4>Mitigation</h4>" + mitigation_html if mitigation_html else ""}
-
-            {f"<h4>Why this scored high</h4>{why_html}" if why_html else ""}
-        </div>
-        """, unsafe_allow_html=True)
+    st.markdown(tile_html, unsafe_allow_html=True)
 
 # ----------------------------------------------------
 # Download Risk Register
