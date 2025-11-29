@@ -1,4 +1,5 @@
 import streamlit as st
+import textwrap
 
 # -------------------------------------
 # PAGE CONFIG
@@ -10,111 +11,88 @@ st.set_page_config(
 )
 
 # -------------------------------------
-# LOAD STYLESHEET CSS
+# LOAD CSS FROM FILE
 # -------------------------------------
-def local_css(file_name):
-    with open(file_name) as f:
+def local_css(file_name: str):
+    with open(file_name, "r") as f:
         css = f"<style>{f.read()}</style>"
         st.markdown(css, unsafe_allow_html=True)
 
-local_css("styles.css")      # ← ensure styles.css is next to this file
-
+# styles.css must be in the same folder as this file
+local_css("styles.css")
 
 # -------------------------------------
 # HERO BANNER
 # -------------------------------------
-st.markdown("""
+hero_html = textwrap.dedent("""
 <div class="hero">
     <div class="hero-glow"></div>
     <div class="hero-particles"></div>
 
     <div class="hero-content">
         <h1 class="hero-title">Innovation Mentor</h1>
-        <p class="hero-sub">A future-ready platform for innovators, startups, and portfolio managers.</p>
+        <p class="hero-sub">A future-ready space for innovators, startups, and portfolio managers.</p>
     </div>
 </div>
-""", unsafe_allow_html=True)
+""")
 
+st.markdown(hero_html, unsafe_allow_html=True)
 
 # -------------------------------------
+# FEATURE TILES
 # -------------------------------------
-# FEATURE TILES (FIXED)
-# -------------------------------------
-tile_html = """
+tiles_html = textwrap.dedent("""
 <div class="tile-container">
 
-    <a href="01_TRL_Assessment" class="glow-tile">TRL Assessment</a>
-    <a href="02_Business_Models" class="glow-tile">Business Models</a>
-    <a href="03_Finance_Tools" class="glow-tile">Financial Tools</a>
-    <a href="04_Marketing_Strategy" class="glow-tile">Marketing Strategy</a>
-    <a href="05_Risk_Dashboard" class="glow-tile">Risk Dashboard</a>
-    <a href="06_Export_Tools" class="glow-tile">Export Tools</a>
+    <a class="glow-tile" href="01_TRL_Assessment">TRL Assessment</a>
+    <a class="glow-tile" href="02_Business_Models">Business Models</a>
+    <a class="glow-tile" href="03_Finance_Tools">Financial Tools</a>
+    <a class="glow-tile" href="04_Marketing_Strategy">Marketing Strategy</a>
+    <a class="glow-tile" href="05_Risk_Dashboard">Risk Dashboard</a>
+    <a class="glow-tile" href="06_Export_Tools">Export Tools</a>
 
 </div>
-"""
+""")
 
-st.markdown(tile_html, unsafe_allow_html=True)
+st.markdown(tiles_html, unsafe_allow_html=True)
 
-
+st.markdown("<br><br>", unsafe_allow_html=True)
 
 # -------------------------------------
 # ABOUT SECTION
 # -------------------------------------
-st.markdown("""
+about_html = textwrap.dedent("""
 <div class="section-block">
     <h2 class="section-title">About the Platform</h2>
     <p class="section-text">
-        The Innovation Mentor Platform is designed to support innovators, researchers, entrepreneurs,
-        and portfolio managers with structured tools for clarity and strong decision-making.
-        It simplifies complex processes such as TRL assessment, business model selection,
-        financial outlooks, risk analysis, and early commercialisation strategy development.
+        The Innovation Mentor Platform supports innovators, entrepreneurs, researchers,
+        and portfolio managers with structured thinking tools. It focuses on clarity in TRL,
+        business models, early-stage financial thinking, commercialisation logic and risk framing.
     </p>
 </div>
-""", unsafe_allow_html=True)
-
+""")
+st.markdown(about_html, unsafe_allow_html=True)
 
 # -------------------------------------
-# MODULE OVERVIEW
+# MVP SECTION
 # -------------------------------------
-st.markdown("""
+mvp_html = textwrap.dedent("""
 <div class="section-block">
-    <h2 class="section-title">What’s Inside</h2>
-
-    <ul class="feature-list">
-        <li><b>TRL Assessment:</b> A structured guide aligned with global TRL definitions.</li>
-        <li><b>Business Model Logic:</b> Matches innovations to 70+ business model patterns.</li>
-        <li><b>Financial Tools:</b> Helps explore revenue, costs, and viability.</li>
-        <li><b>Marketing Strategy:</b> Market segmentation, value prop and channels.</li>
-        <li><b>Risk Dashboard:</b> Evaluates technical, operational, market and financial risks.</li>
-        <li><b>Export Tools:</b> Generate summaries and shareable formats.</li>
-    </ul>
-</div>
-""", unsafe_allow_html=True)
-
-
-# -------------------------------------
-# MVP DISCLAIMER
-# -------------------------------------
-st.markdown("""
-<div class="section-block">
-    <h2 class="section-title">MVP Notice</h2>
+    <h2 class="section-title">MVP Status</h2>
     <p class="section-text">
-        This platform is currently an MVP. Features, logic, scoring and AI guidance
-        will evolve over time as real users test and provide input.
+        This is an MVP (Minimum Viable Product). Logic, scoring and guidance will evolve as
+        real-world usage, feedback and validation data are collected.
     </p>
 </div>
-""", unsafe_allow_html=True)
-
+""")
+st.markdown(mvp_html, unsafe_allow_html=True)
 
 # -------------------------------------
 # FOOTER
 # -------------------------------------
-st.markdown("""
+footer_html = textwrap.dedent("""
 <div class="footer">
     <p>© 2025 Innovation Mentor</p>
-    <p class="footer-links">
-        <a href="https://innovationmentor.streamlit.app" target="_blank">App</a> •
-        <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-    </p>
 </div>
-""", unsafe_allow_html=True)
+""")
+st.markdown(footer_html, unsafe_allow_html=True)
