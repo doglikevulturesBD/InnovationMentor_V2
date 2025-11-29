@@ -6,37 +6,25 @@ st.set_page_config(
     page_icon="💡"
 )
 
-import streamlit as st
-
-# Load custom CSS
+# Load custom CSS FIRST
 def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 local_css("styles.css")
 
-# HERO SECTION
+# Load additional CSS SECOND
 st.markdown("""
-<div class="hero">
-    <div class="hero-glow"></div>
-    <h1 class="hero-title">Innovation Mentor</h1>
-    <p class="hero-sub">Guiding innovators, startups, and future-makers.</p>
-</div>
+<style>
+.big-title { font-size: 46px !important; font-weight: 800 !important; margin-bottom: 5px; }
+.subtitle { font-size: 19px !important; color: #555; margin-bottom: 25px; }
+.section-header { font-size: 26px !important; font-weight: 700 !important; margin-top: 25px; }
+.body-text { font-size: 17px !important; color: #444; line-height: 1.6; }
+.footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #dddddd; color: #666; font-size: 13px; }
+.footer a { color: #0073e6; text-decoration: none; }
+</style>
 """, unsafe_allow_html=True)
 
-# FEATURE TILES
-st.markdown("""
-<div class="tile-container">
-
-    <a href="?page=trl" class="glow-tile">TRL Assessment</a>
-    <a href="?page=models" class="glow-tile">Business Models</a>
-    <a href="?page=finance" class="glow-tile">Financial Tools</a>
-    <a href="?page=marketing" class="glow-tile">Marketing Strategy</a>
-    <a href="?page=risk" class="glow-tile">Risk Dashboard</a>
-    <a href="?page=export" class="glow-tile">Export Tools</a>
-
-</div>
-""", unsafe_allow_html=True)
 
 # ---------------------------
 # CUSTOM STYLES
