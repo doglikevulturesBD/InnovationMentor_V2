@@ -3,17 +3,71 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime
 
-st.set_page_config(page_title="Market Study Guide", layout="wide")
+# ------------------------------------------------------
+# PAGE CONFIG
+# ------------------------------------------------------
+st.set_page_config(page_title="Market Study Guide", page_icon="📊", layout="wide")
+
+# ------------------------------------------------------
+# LOAD GLOBAL CSS (same as homepage)
+# ------------------------------------------------------
+def local_css(file_name: str):
+    with open(file_name, "r") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("styles.css")
+
+
+# ------------------------------------------------------
+# MATPLOTLIB NEON THEME
+# ------------------------------------------------------
+plt.rcParams.update({
+    "figure.facecolor": "#0b111f",
+    "axes.facecolor": "#0b111f",
+    "axes.edgecolor": "#89b4f8",
+    "axes.labelcolor": "#c7d6f9",
+    "xtick.color": "#c7d6f9",
+    "ytick.color": "#c7d6f9",
+    "text.color": "#e8eeff",
+    "axes.grid": True,
+    "grid.color": "#4178e0",
+    "grid.alpha": 0.25,
+})
+
+
+# ------------------------------------------------------
+# HERO BANNER (same style as TRL + Financial Projections)
+# ------------------------------------------------------
+hero_html = """
+<div class="hero sub-hero">
+<div class="hero-glow"></div>
+<div class="hero-particles"></div>
+
+<div class="hero-content">
+<h1 class="hero-title">Market Study Guide</h1>
+<p class="hero-sub">Validate your market before finalising commercialisation and funding plans.</p>
+</div>
+</div>
+"""
+st.markdown(hero_html, unsafe_allow_html=True)
+
+
+# ------------------------------------------------------
+# OPEN MAIN SECTION WRAPPER
+# ------------------------------------------------------
+st.markdown("<div class='section-block'>", unsafe_allow_html=True)
+
+
 
 # ----------------------------------------------------------
-# HEADER
+# CONTENT BEGINS HERE (your original content)
 # ----------------------------------------------------------
-st.title("📊 Market Study Guide")
-st.caption("A compact, structured worksheet to validate your market before finalising commercialisation and funding plans.")
+
+st.caption("A compact, structured worksheet to build confidence in your **market**, **customers**, and **positioning**.")
 
 st.markdown("""
-This module helps you build confidence in your **market**, your **customers**, and your **positioning**.  
-The output feeds directly into your **Commercialisation Strategy** and **Financial Projections**.
+This module feeds directly into your **Commercialisation Strategy**, **Business Model**,  
+and **Financial Projections** modules.
 """)
 
 st.markdown("---")
@@ -53,17 +107,29 @@ with col3:
 
 growth_rate = st.slider("Expected Annual Growth (%)", 0.0, 30.0, 8.0, step=0.5) / 100
 
-st.subheader("TAM–SAM–SOM Pyramid (Compact View)")
-fig, ax = plt.subplots(figsize=(2.5, 2.5))
-ax.barh(["TAM", "SAM", "SOM"], [tam, sam, som], color=["#c7d6f9", "#89b4f8", "#4178e0"])
+
+# ----------------------------------------------------------
+# Neon Compact TAM–SAM–SOM Chart
+# ----------------------------------------------------------
+st.subheader("TAM–SAM–SOM Pyramid (Neon Compact View)")
+fig, ax = plt.subplots(figsize=(3, 2))
+
+bars = ax.barh(
+    ["TAM", "SAM", "SOM"],
+    [tam, sam, som],
+    color=["#3e6ce0", "#2e5ad6", "#1f49c2"],
+)
+
 ax.set_xlabel("Market Size (R)", fontsize=8)
 ax.tick_params(axis="y", labelsize=8)
-ax.tick_params(axis="x", labelsize=8)
-ax.grid(axis="x", linestyle="--", alpha=0.3)
+ax.tick_params(axis="x", labelsize=7)
 ax.invert_yaxis()
+
 for i, v in enumerate([tam, sam, som]):
-    ax.text(v, i, f"R{v/1_000_000:.1f}M", va="center", ha="left", fontsize=7)
-st.pyplot(fig, width=300)
+    ax.text(v * 1.01, i, f"R{v/1_000_000:.1f}M",
+            va="center", ha="left", fontsize=7, color="#89b4f8")
+
+st.pyplot(fig, use_container_width=False, width=240)
 
 st.markdown("---")
 
@@ -144,8 +210,6 @@ readiness_label = (
 )
 
 st.metric("Market Readiness Score", f"{score}%", readiness_label)
-
-# Save for later modules
 st.session_state["market_readiness"] = score
 
 st.markdown("---")
@@ -157,13 +221,23 @@ st.header("7. Market vs Financial Readiness")
 
 financial_readiness = st.slider("Financial Readiness (%)", 0, 100, 70)
 
-fig2, ax2 = plt.subplots(figsize=(2.5, 2.5))
-ax2.bar(["Market", "Financial"], [score, financial_readiness], color=["#4a90e2", "#f5a623"], width=0.5)
+fig2, ax2 = plt.subplots(figsize=(3, 2))
+
+bars2 = ax2.bar(
+    ["Market", "Financial"],
+    [score, financial_readiness],
+    width=0.55,
+    color=["#4a90e2", "#f5a623"]
+)
+
 ax2.set_ylim(0, 100)
 ax2.set_ylabel("Readiness (%)", fontsize=8)
+
 for i, v in enumerate([score, financial_readiness]):
-    ax2.text(i, v + 2, f"{v:.0f}%", ha="center", va="bottom", fontsize=8)
-st.pyplot(fig2)
+    ax2.text(i, v + 2, f"{v:.0f}%",
+             ha="center", va="bottom", fontsize=8, color="#c7d6f9")
+
+st.pyplot(fig2, use_container_width=False, width=240)
 
 with st.expander("💡 Mentor Insight"):
     if score < financial_readiness - 10:
@@ -218,3 +292,9 @@ st.download_button(
     use_container_width=True
 )
 
+
+
+# ------------------------------------------------------
+# CLOSE MAIN SECTION WRAPPER
+# ------------------------------------------------------
+st.markdown("</div>", unsafe_allow_html=True)
