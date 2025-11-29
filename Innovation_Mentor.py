@@ -6,6 +6,38 @@ st.set_page_config(
     page_icon="💡"
 )
 
+import streamlit as st
+
+# Load custom CSS
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("styles.css")
+
+# HERO SECTION
+st.markdown("""
+<div class="hero">
+    <div class="hero-glow"></div>
+    <h1 class="hero-title">Innovation Mentor</h1>
+    <p class="hero-sub">Guiding innovators, startups, and future-makers.</p>
+</div>
+""", unsafe_allow_html=True)
+
+# FEATURE TILES
+st.markdown("""
+<div class="tile-container">
+
+    <a href="?page=trl" class="glow-tile">TRL Assessment</a>
+    <a href="?page=models" class="glow-tile">Business Models</a>
+    <a href="?page=finance" class="glow-tile">Financial Tools</a>
+    <a href="?page=marketing" class="glow-tile">Marketing Strategy</a>
+    <a href="?page=risk" class="glow-tile">Risk Dashboard</a>
+    <a href="?page=export" class="glow-tile">Export Tools</a>
+
+</div>
+""", unsafe_allow_html=True)
+
 # ---------------------------
 # CUSTOM STYLES
 # ---------------------------
