@@ -148,12 +148,12 @@ if st.session_state["secondary_done"]:
 
     tile = f"""
     <div class="bm-tile">
-        <h3>{bm['name']}</h3>
-        <p><b>Score:</b> {score:.2f}</p>
-        <p>{bm['description']}</p>
-        <p><b>Tag Fit:</b> {overlap} aligned traits</p>
-        <p><b>Success Rate:</b> {int(bm['success_score']*100)}%</p>
-        <p><b>Maturity:</b> {bm['maturity_level'].title()}</p>
+    <h3>{bm['name']}</h3>
+    <p><b>Score:</b> {score:.2f}</p>
+    <p>{bm['description']}</p>
+    <p><b>Tag Fit:</b> {overlap} aligned traits</p>
+    <p><b>Success Rate:</b> {int(bm['success_score']*100)}%</p>
+    <p><b>Maturity:</b> {bm['maturity_level'].title()}</p>
     </div>
     """
 
