@@ -1,14 +1,46 @@
+# ------------------------------------------------------
+# PAGE CONFIG
+# ------------------------------------------------------
 import streamlit as st
 import numpy as np
 import pandas as pd
 import io
 from datetime import datetime
-import streamlit as st
 
-# -------- Header --------
-st.title("Financial Projections")
+st.set_page_config(page_title="Financial Projections", page_icon="💰", layout="wide")
 
 
+# ------------------------------------------------------
+# LOAD GLOBAL CSS (same as homepage + TRL)
+# ------------------------------------------------------
+def local_css(file_name: str):
+    with open(file_name, "r") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("styles.css")
+
+
+# ------------------------------------------------------
+# HERO BANNER — SAME STYLE AS TRL PAGE
+# ------------------------------------------------------
+hero_html = """
+<div class="hero sub-hero">
+    <div class="hero-glow"></div>
+    <div class="hero-particles"></div>
+
+    <div class="hero-content">
+        <h1 class="hero-title">Financial Projections</h1>
+        <p class="hero-sub">Investment metrics, scenarios, and Monte Carlo risk modelling.</p>
+    </div>
+</div>
+"""
+st.markdown(hero_html, unsafe_allow_html=True)
+
+
+# ------------------------------------------------------
+# OPEN MAIN SECTION WRAPPER
+# ------------------------------------------------------
+st.markdown("<div class='section-block'>", unsafe_allow_html=True)
 
 # ------------------------
 # Sidebar Inputs
