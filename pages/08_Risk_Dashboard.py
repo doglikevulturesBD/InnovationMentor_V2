@@ -1,7 +1,7 @@
 # ============================================
 # INNOVATION MENTOR APP
-# PAGE: 07_Risk_Dashboard.py (MVP Polished Edition)
-# FUNCTION: Hybrid Dynamic Risk Dashboard
+# PAGE: 07_Risk_Dashboard.py
+# FUNCTION: Hybrid Dynamic Risk Dashboard (Tile Edition)
 # ============================================
 
 import json
@@ -13,17 +13,51 @@ import streamlit as st
 # ----------------------------------------------------
 # PAGE CONFIG
 # ----------------------------------------------------
-st.set_page_config(page_title="Risk Dashboard", layout="wide")
-st.title("⚠️ Innovation Risk Dashboard")
-st.caption("Identify, quantify, and mitigate the major risks limiting your innovation’s readiness.")
+st.set_page_config(
+    page_title="Risk Dashboard",
+    page_icon="⚠️",
+    layout="wide"
+)
+
+# ----------------------------------------------------
+# GLOBAL CSS (same as other modules)
+# ----------------------------------------------------
+def local_css(file_name: str):
+    with open(file_name, "r") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("styles.css")
+
+# ----------------------------------------------------
+# HERO BANNER
+# ----------------------------------------------------
+hero_html = """
+<div class="hero sub-hero">
+    <div class="hero-glow"></div>
+    <div class="hero-particles"></div>
+
+    <div class="hero-content">
+        <h1 class="hero-title">Innovation Risk Dashboard</h1>
+        <p class="hero-sub">Identify, quantify, and mitigate the main risks limiting your innovation’s readiness.</p>
+    </div>
+</div>
+"""
+st.markdown(hero_html, unsafe_allow_html=True)
+
+# ----------------------------------------------------
+# WRAP CONTENT
+# ----------------------------------------------------
+st.markdown("<div class='section-block'>", unsafe_allow_html=True)
+
+st.caption("Blending questionnaire inputs with context from other modules to build a live risk profile.")
 
 st.markdown("""
-This dashboard blends a short **diagnostic questionnaire** with automatic context from other modules  
+This dashboard combines a short **diagnostic questionnaire** with automatic context from other modules  
 (TRL, Business Model, Marketing, Financing, Commercialisation, IP)  
 to generate a tailored **Top Risk Profile** with practical mitigation steps.
-
----
 """)
+
+st.markdown("---")
 
 # ----------------------------------------------------
 # Load JSON Assets
@@ -54,28 +88,52 @@ mkt_str  = st.session_state.get("marketing_top_strategies", [])
 comm     = st.session_state.get("commercialisation_pathway", None)
 
 # ----------------------------------------------------
-# Context Expander
+# Context Tile (inside expander)
 # ----------------------------------------------------
 with st.expander("ℹ️ Detected project context (editable)"):
+    st.markdown("<div class='im-tile'>", unsafe_allow_html=True)
+
     col1, col2, col3 = st.columns(3)
     with col1:
         st.number_input("TRL", 1, 9, int(trl), key="ctx_trl")
-        st.selectbox("Funding stage", ["Pre-seed","Seed","Series A","Series B","Revenue"], index=1, key="ctx_funding")
+        st.selectbox(
+            "Funding stage",
+            ["Pre-seed", "Seed", "Series A", "Series B", "Revenue"],
+            index=["Pre-seed","Seed","Series A","Series B","Revenue"].index(funding) if funding in ["Pre-seed","Seed","Series A","Series B","Revenue"] else 1,
+            key="ctx_funding"
+        )
     with col2:
-        st.selectbox("Business model", ["Licensing","Direct Sales","Subscription","Franchising / Replication Model","Marketplace","Other"], key="ctx_bm")
-        st.selectbox("Commercialisation pathway", ["Public-Private Pilot","Direct Sales","Licensing","Partnership / JV","Franchising","Digital Platform","Co-Development","Unknown"], key="ctx_comm")
+        st.selectbox(
+            "Business model",
+            ["Licensing", "Direct Sales", "Subscription",
+             "Franchising / Replication Model", "Marketplace", "Other"],
+            index=0 if not bm else 0,
+            key="ctx_bm"
+        )
+        st.selectbox(
+            "Commercialisation pathway",
+            ["Public-Private Pilot", "Direct Sales", "Licensing",
+             "Partnership / JV", "Franchising",
+             "Digital Platform", "Co-Development", "Unknown"],
+            index=7 if comm is None else 7,
+            key="ctx_comm"
+        )
     with col3:
         st.multiselect(
             "Top marketing strategies",
             ["Product Differentiation", "Cost / Value Leadership", "Niche / Community Focus",
-             "Partnership & Co-Creation","Digital-First","Engagement / Experience",
-             "Impact Branding","Community Growth","Ecosystem Storytelling"],
+             "Partnership & Co-Creation", "Digital-First", "Engagement / Experience",
+             "Impact Branding", "Community Growth", "Ecosystem Storytelling"],
             default=mkt_str,
             key="ctx_mkt"
         )
 
+    st.markdown("</div>", unsafe_allow_html=True)
+
+st.markdown("---")
+
 # ----------------------------------------------------
-# Questionnaire
+# Questionnaire (Tile-style)
 # ----------------------------------------------------
 st.subheader("📝 Quick Risk Questionnaire")
 
@@ -84,12 +142,13 @@ answers = {}
 total_q = len(questions)
 
 for i, q in enumerate(questions, start=1):
+    st.markdown(f"<div class='im-tile'>", unsafe_allow_html=True)
+
     st.markdown(f"### Question {i} of {total_q}")
-    st.write(f"**{q['question']}**")
+    st.markdown(f"**{q['question']}**")
 
     opts = [o["text"] for o in q["options"]]
     choice = st.radio("", opts, key=f"risk_q_{q['id']}")
-
     answers[q["id"]] = choice
 
     selected_option = next(o for o in q["options"] if o["text"] == choice)
@@ -97,7 +156,9 @@ for i, q in enumerate(questions, start=1):
         base_scores[risk_type] += base_points
 
     st.progress(i / total_q)
-    st.divider()
+
+    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("")
 
 # ----------------------------------------------------
 # Apply Contextual Weighting Rules
@@ -111,7 +172,7 @@ ctx = {
 }
 
 weighted_scores = defaultdict(int, base_scores)
-rule_hits = defaultdict(list)  # For tracing what rules contributed
+rule_hits = defaultdict(list)
 
 def rule_matches(rule_when: dict) -> bool:
     if "trl_max" in rule_when and ctx["trl"] > rule_when["trl_max"]:
@@ -143,36 +204,52 @@ st.subheader("🔥 Top Risks")
 if not top_risks:
     st.info("No major risks detected yet — adjust questionnaire or context.")
 else:
-    # Chart
+    # Chart in tile
+    st.markdown("<div class='im-tile'>", unsafe_allow_html=True)
+    st.markdown("#### Risk Score Overview")
+
     chart_df = pd.DataFrame(top_risks, columns=["Risk", "Score"]).set_index("Risk")
     st.bar_chart(chart_df)
 
+    st.markdown("</div>", unsafe_allow_html=True)
     st.markdown("---")
 
-    # Detailed breakdown
+    # Detailed tiles per risk
     for risk_type, score in top_risks:
         entry = library.get(risk_type, {})
 
-        with st.expander(f"{risk_type} — Score {score}"):
-            st.markdown(f"**Category:** {entry.get('category', '—')}")
-            st.markdown(f"**Description:** {entry.get('description', '—')}")
+        indicators = entry.get("indicators", [])
+        mitigation = entry.get("mitigation", [])
+        severity = entry.get("severity", "—")
+        category = entry.get("category", "—")
 
-            if entry.get("indicators"):
-                st.markdown("**Indicators:**")
-                for i in entry["indicators"]:
-                    st.markdown(f"- {i}")
+        indicators_html = ""
+        if indicators:
+            indicators_html = "<ul>" + "".join([f"<li>{i}</li>" for i in indicators]) + "</ul>"
 
-            if entry.get("mitigation"):
-                st.markdown("**Mitigation:**")
-                for m in entry["mitigation"]:
-                    st.markdown(f"- {m}")
+        mitigation_html = ""
+        if mitigation:
+            mitigation_html = "<ul>" + "".join([f"<li>{m}</li>" for m in mitigation]) + "</ul>"
 
-            st.markdown(f"**Severity (baseline):** {entry.get('severity', '—')}")
+        why_html = ""
+        if rule_hits.get(risk_type):
+            why_html = "<ul>" + "".join([f"<li>{h}</li>" for h in rule_hits[risk_type]]) + "</ul>"
 
-            if rule_hits.get(risk_type):
-                with st.expander("Why this risk scored high?"):
-                    for h in rule_hits[risk_type]:
-                        st.markdown(f"- **{h}**")
+        st.markdown(f"""
+        <div class="im-tile">
+            <h3>⚠️ {risk_type} — Score {score}</h3>
+            <p><b>Category:</b> {category} &nbsp; | &nbsp; <b>Baseline Severity:</b> {severity}</p>
+
+            <h4>Description</h4>
+            <p>{entry.get("description", "—")}</p>
+
+            {"<h4>Indicators</h4>" + indicators_html if indicators_html else ""}
+
+            {"<h4>Mitigation</h4>" + mitigation_html if mitigation_html else ""}
+
+            {f"<h4>Why this scored high</h4>{why_html}" if why_html else ""}
+        </div>
+        """, unsafe_allow_html=True)
 
 # ----------------------------------------------------
 # Download Risk Register
@@ -181,22 +258,36 @@ if top_risks:
     rows = []
     for r, score in top_risks:
         e = library.get(r, {})
+        mit = e.get("mitigation", [])
         rows.append({
             "Risk": r,
             "Score": score,
             "Category": e.get("category", ""),
             "Severity": e.get("severity", ""),
             "Description": e.get("description", ""),
-            "Mitigation 1": (e.get("mitigation", [""]))[0],
-            "Mitigation 2": (e.get("mitigation", ["",""]))[1] if len(e.get("mitigation", [])) > 1 else "",
-            "Mitigation 3": (e.get("mitigation", ["","",""]))[2] if len(e.get("mitigation", [])) > 2 else ""
+            "Mitigation 1": mit[0] if len(mit) > 0 else "",
+            "Mitigation 2": mit[1] if len(mit) > 1 else "",
+            "Mitigation 3": mit[2] if len(mit) > 2 else "",
         })
 
     df = pd.DataFrame(rows)
     csv = df.to_csv(index=False).encode("utf-8")
-    st.download_button("⬇️ Download Risk Register (CSV)", csv, file_name="risk_register.csv", mime="text/csv")
 
-st.caption("This dashboard adapts based on inputs from other modules. Complete TRL, Business Model, Market, Financial, and Strategy pages for richer insights.")
+    st.markdown("<div class='im-tile'>", unsafe_allow_html=True)
+    st.markdown("### 📥 Export Risk Register")
+    st.download_button(
+        "⬇️ Download Risk Register (CSV)",
+        csv,
+        file_name="risk_register.csv",
+        mime="text/csv",
+        use_container_width=True
+    )
+    st.markdown("</div>", unsafe_allow_html=True)
 
+st.caption("This dashboard adapts as other modules are completed. Fill in TRL, Market, Financial, Business Model, Strategy and IP for richer insights.")
 
-st.caption("Tip: Other pages can set session_state keys like trl_level, selected_business_model, funding_stage, marketing_top_strategies, commercialisation_pathway to auto-inform this dashboard.")
+# ----------------------------------------------------
+# CLOSE WRAPPER
+# ----------------------------------------------------
+st.markdown("</div>", unsafe_allow_html=True)
+
