@@ -1,6 +1,6 @@
 import streamlit as st
 import textwrap
-
+from streamlit_extras.switch_page_button import switch_page
 # -------------------------------------
 # PAGE CONFIG
 # -------------------------------------
@@ -41,25 +41,61 @@ st.markdown(hero_html, unsafe_allow_html=True)
 # -------------------------------------
 # FEATURE TILES
 # -------------------------------------
-tiles_html = textwrap.dedent("""
 
-<div class="holo-container">
-<a class="holo-tile" href="TRL_Calculator"> TRL Calculator</a>
-<a class="holo-tile" href="/Business_Model_Selector">Business Models</a>
-<a class="holo-tile" href="/Financial_Projection">Financial Projection</a>
-<a class="holo-tile" href="/Market_Study_Guide">Marketing Strategy</a>
-<a class="holo-tile" href="/Commercialisation_Strategy">Commercialisation Strategy</a>
-<a class="holo-tile" href="/IP_Management">IP Management</a>
-<a class="holo-tile" href="/Risk_Dashboard">Risk Dashboard</a>
-<a class="holo-tile" href="/Financial_Options">Financial Options</a>
-<a class="holo-tile" href="/Legal_and_Compliance">Legal Compliance</a>
-<a class="holo-tile" href="/Feedback">Feedback</a>
-<a class="holo-tile" href="/Export_Report">Export Tools</a>
+# ---- HOLOGRAM TILES WITH FULL-PAGE NAVIGATION ----
 
-</div>
-""")
+cols = st.columns(3)
 
-st.markdown(tiles_html, unsafe_allow_html=True)
+with cols[0]:
+    if st.button("🔬  TRL Calculator", key="tile_trl"):
+        switch_page("TRL_Calculator")
+
+with cols[1]:
+    if st.button("📦  Business Models", key="tile_bm"):
+        switch_page("Business_Model_Selector")
+
+with cols[2]:
+    if st.button("💸  Financial Projection", key="tile_fin"):
+        switch_page("Financial_Projection")
+
+cols = st.columns(3)
+
+with cols[0]:
+    if st.button("📢  Marketing Strategy", key="tile_market"):
+        switch_page("Market_Study_Guide")
+
+with cols[1]:
+    if st.button("🚀  Commercialisation Strategy", key="tile_comm"):
+        switch_page("Commercialisation_Strategy")
+
+with cols[2]:
+    if st.button("💡  IP Management", key="tile_ip"):
+        switch_page("IP_Management")
+
+cols = st.columns(3)
+
+with cols[0]:
+    if st.button("⚠️  Risk Dashboard", key="tile_risk"):
+        switch_page("Risk_Dashboard")
+
+with cols[1]:
+    if st.button("🔧  Financial Options", key="tile_opt"):
+        switch_page("Financial_Options")
+
+with cols[2]:
+    if st.button("📜  Legal & Compliance", key="tile_legal"):
+        switch_page("Legal_and_Compliance")
+
+cols = st.columns(3)
+
+with cols[0]:
+    if st.button("💬  Feedback", key="tile_fb"):
+        switch_page("Feedback")
+
+with cols[1]:
+    if st.button("📤  Export Tools", key="tile_export"):
+        switch_page("Export_Report")
+
 
 
 # -------------------------------------
