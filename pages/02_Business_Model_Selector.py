@@ -46,7 +46,7 @@ def local_css(name):
 local_css("styles.css")
 
 # ---------------- HERO ----------------
-hero_html = """
+hero_html = ("""
 <div class="hero">
 <div class="hero-glow"></div>
 <div class="hero-content">
@@ -54,7 +54,7 @@ hero_html = """
 <p class="hero-sub">Find the best-fit pathways for taking your innovation forward.</p>
 </div>
 </div>
-"""
+""")
 
 st.markdown(hero_html, unsafe_allow_html=True)
 
