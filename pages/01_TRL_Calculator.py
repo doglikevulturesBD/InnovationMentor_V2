@@ -6,22 +6,65 @@ from utils.trl_logic import (
     trl_descriptions, next_trl_description
 )
 
-st.title("🚦 TRL Assessment Tool")
+# ------------------------------------------------------
+# PAGE CONFIG
+# ------------------------------------------------------
+st.set_page_config(page_title="TRL Calculator", page_icon="🚦", layout="wide")
+
+# ------------------------------------------------------
+# LOAD GLOBAL CSS (same as homepage)
+# ------------------------------------------------------
+def local_css(file_name: str):
+    with open(file_name, "r") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("styles.css")
+
+
+# ------------------------------------------------------
+# HERO BANNER — SAME STYLE AS HOME PAGE
+# ------------------------------------------------------
+hero_html = """
+<div class="hero sub-hero">
+    <div class="hero-glow"></div>
+    <div class="hero-particles"></div>
+
+    <div class="hero-content">
+        <h1 class="hero-title">TRL Assessment</h1>
+        <p class="hero-sub">Determine your true technology readiness level.</p>
+    </div>
+</div>
+"""
+st.markdown(hero_html, unsafe_allow_html=True)
+
+
+# ------------------------------------------------------
+# TRL LOGIC + UI
+# ------------------------------------------------------
+st.markdown("<div class='section-block'>", unsafe_allow_html=True)
+
 st.caption("Answer each question honestly. A single ‘No’ will stop the assessment and assign the appropriate TRL.")
 
 # ---------- Session State ----------
-if "step" not in st.session_state:        st.session_state.step = 0
-if "answers" not in st.session_state:     st.session_state.answers = []
-if "finished" not in st.session_state:    st.session_state.finished = False
+if "step" not in st.session_state:
+    st.session_state.step = 0
+if "answers" not in st.session_state:
+    st.session_state.answers = []
+if "finished" not in st.session_state:
+    st.session_state.finished = False
+
 
 def handle_answer(answer: bool):
     st.session_state.answers.append(answer)
     if not answer:
         st.session_state.finished = True
         return
+
     st.session_state.step += 1
+
     if st.session_state.step >= len(questions):
         st.session_state.finished = True
+
 
 def restart():
     st.session_state.step = 0
@@ -29,7 +72,7 @@ def restart():
     st.session_state.finished = False
 
 
-# Sidebar reset
+# Sidebar restart button
 with st.sidebar:
     st.header("TRL Tool")
     if st.button("🔄 Restart Assessment"):
@@ -37,15 +80,18 @@ with st.sidebar:
         st.experimental_rerun()
 
 
-# ---------- Progress ----------
+# ---------- Progress Bar ----------
 progress = st.session_state.step / len(questions)
 st.progress(progress)
 
-# ---------- Flow ----------
+
+# ---------- Question Flow ----------
 if not st.session_state.finished and st.session_state.step < len(questions):
+
     q = questions[st.session_state.step]
-    st.markdown(f"### Step {st.session_state.step + 1} / {len(questions)}")
-    st.markdown(f"**{q['text']}**")
+
+    st.markdown(f"<h3>Step {st.session_state.step + 1} / {len(questions)}</h3>", unsafe_allow_html=True)
+    st.markdown(f"<div class='section-text'><b>{q['text']}</b></div>", unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
     col1.button("🟩 Yes", key=f"yes_{st.session_state.step}", use_container_width=True,
@@ -54,6 +100,7 @@ if not st.session_state.finished and st.session_state.step < len(questions):
                 on_click=handle_answer, args=(False,))
 
 else:
+    # ---------- Final Result ----------
     trl = calculate_trl(st.session_state.answers)
     label = "TRL 0 (pre-TRL)" if trl == 0 else f"TRL {trl} / 9"
 
@@ -64,8 +111,8 @@ else:
 
     st.markdown("### 📝 Your Responses")
     for i, ans in enumerate(st.session_state.answers):
-        mark = "🟩 Yes" if ans else "🟥 No"
-        st.write(f"**Step {i+1}:** {mark}")
+        emoji = "🟩 Yes" if ans else "🟥 No"
+        st.write(f"**Step {i+1}:** {emoji}")
 
     if trl < 9:
         st.markdown("### 🛠 How to Reach the Next TRL")
@@ -76,15 +123,17 @@ else:
 
     st.divider()
     st.markdown("### 📘 TRL Reference Overview")
+
     for lvl in range(0, 10):
-        if lvl not in trl_descriptions: 
+        if lvl not in trl_descriptions:
             continue
         marker = "🟩" if lvl == trl else "⬜"
-        title = "TRL 0 (pre-TRL)" if lvl == 0 else f"TRL {lvl}"
-        st.markdown(f"{marker} **{title}:** {trl_descriptions[lvl]}")
+        name = "TRL 0 (pre-TRL)" if lvl == 0 else f"TRL {lvl}"
+        st.markdown(f"{marker} **{name}:** {trl_descriptions[lvl]}")
 
     st.markdown("### 💬 Reflection")
     enforce_reflection("trl_assessment")
 
     st.button("🔁 Restart", on_click=restart, use_container_width=True)
 
+st.markdown("</div>", unsafe_allow_html=True)
