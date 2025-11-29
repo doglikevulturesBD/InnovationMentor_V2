@@ -1,210 +1,237 @@
+# ============================================
+# INNOVATION MENTOR APP
+# PAGE: Legal & Compliance (Tile Edition)
+# ============================================
+
 import streamlit as st
 
-st.set_page_config(page_title="Legal & Compliance", layout="wide")
+# ----------------------------------------------------
+# PAGE CONFIG
+# ----------------------------------------------------
+st.set_page_config(
+    page_title="Legal & Compliance",
+    page_icon="⚖️",
+    layout="wide"
+)
 
-st.title("Legal & Compliance")
+# ----------------------------------------------------
+# LOAD GLOBAL CSS
+# ----------------------------------------------------
+def local_css(file_name: str):
+    with open(file_name, "r") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("styles.css")
+
+# ----------------------------------------------------
+# HERO BANNER
+# ----------------------------------------------------
+hero_html = """
+<div class="hero sub-hero">
+    <div class="hero-glow"></div>
+    <div class="hero-particles"></div>
+
+    <div class="hero-content">
+        <h1 class="hero-title">Legal & Compliance</h1>
+        <p class="hero-sub">Clear guidance on terms, licensing, privacy and POPIA alignment.</p>
+    </div>
+</div>
+"""
+st.markdown(hero_html, unsafe_allow_html=True)
+
+# ----------------------------------------------------
+# SECTION WRAPPER
+# ----------------------------------------------------
+st.markdown("<div class='section-block'>", unsafe_allow_html=True)
+
+st.caption("Your quick-reference legal centre — all fully aligned to the Innovation Mentor design system.")
 st.markdown("---")
 
+# ----------------------------------------------------
+# TABS
+# ----------------------------------------------------
 tab1, tab2, tab3, tab4 = st.tabs([
-    "Terms of Use", 
-    "Licence Summary", 
-    "Privacy & POPIA Notice", 
-    "POPIA Compliance Memo"
+    "📘 Terms of Use", 
+    "📝 Licence Summary", 
+    "🔒 Privacy & POPIA Notice", 
+    "📄 POPIA Compliance Memo"
 ])
 
 # -------------------------
-# 1. TERMS OF USE
+# 1. TERMS OF USE (Tile)
 # -------------------------
 with tab1:
-    st.header("Terms of Use")
+    st.markdown("<div class='im-tile'>", unsafe_allow_html=True)
+
     st.markdown("""
-These Terms of Use govern your access to and use of the **Innovation Mentor** platform.
+    <h2>Terms of Use</h2>
+    These Terms of Use govern your access to and use of the <b>Innovation Mentor</b> platform.
 
-### 1. Purpose of the Platform
-The platform is designed as a personal, independent educational tool to assist innovators, founders, and learners in navigating the innovation and commercialisation journey.
+    <h4>1. Purpose of the Platform</h4>
+    The platform is an independent educational tool.  
+    It is <b>not affiliated</b> with any organisation, employer, or agency.
 
-It is **not affiliated with**, **endorsed by**, or **representing** any organisation, agency, or employer.
+    <h4>2. No Professional or Official Advice</h4>
+    This tool does <b>not</b> provide legal, financial, engineering, IP, or funding advice.  
+    It must not be used for:
+    <ul>
+        <li>official assessments</li>
+        <li>funding or investment decisions</li>
+        <li>due diligence</li>
+        <li>internal organisational evaluation</li>
+    </ul>
 
-### 2. No Professional or Official Advice
-All content is provided for general guidance and educational purposes only.  
-It does not constitute:
-- legal advice  
-- financial advice  
-- funding guidance  
-- engineering guidance  
-- commercialisation decisions  
-- IP or patent advice  
+    <h4>3. Acceptable Use</h4>
+    You agree not to:
+    <ul>
+        <li>misuse or reverse-engineer the platform</li>
+        <li>use it for unlawful or misleading purposes</li>
+        <li>upload harmful content</li>
+        <li>bypass reflection gates or modify logic</li>
+    </ul>
 
-The platform must **not** be used for:
-- official evaluations  
-- grant/investment decisions  
-- due diligence  
-- internal or external organisational assessment  
+    <h4>4. Intellectual Property</h4>
+    All logic, frameworks and structured content belong to the creator.
 
-Decisions made based on the platform are solely your responsibility.
+    <h4>5. Liability Limitation</h4>
+    The creator is not liable for losses, decisions or misinterpretations.
 
-### 3. Acceptable Use
-By using the platform, you agree that you will not:
-- misuse or attempt to reverse-engineer the tool  
-- use it for unlawful, harmful, or misleading purposes  
-- impersonate others or provide false information  
-- upload harmful content or malicious code  
-- bypass required reflection checkpoints  
+    <h4>6. Updates to These Terms</h4>
+    Terms may be updated as the platform evolves.
 
-### 4. Intellectual Property
-All structured logic, frameworks, worksheet templates, workflows, and content remain the property of the creator unless otherwise stated.
+    <br>© 2025 Innovation Mentor Platform — Educational use only.
+    """)
 
-### 5. Data Handling
-Use of the platform implies agreement with the Privacy and POPIA Notice.
-
-### 6. Liability Limitation
-The creator is not liable for:
-- business losses  
-- grant/funding decisions  
-- project outcomes  
-- misunderstandings or misinterpretations  
-- indirect, incidental, or consequential damages  
-
-### 7. Updates to These Terms
-These Terms may be updated as the platform grows. Continued use constitutes acceptance of updated terms.
-
-© 2025 Innovation Mentor Platform — Educational use only.
-""")
-
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # -------------------------
-# 2. LICENCE SUMMARY
+# 2. LICENCE SUMMARY (Tile)
 # -------------------------
 with tab2:
-    st.header("Licence Summary")
+    st.markdown("<div class='im-tile'>", unsafe_allow_html=True)
+
     st.markdown("""
-The **Innovation Mentor** platform, including its logic, templates, and content, is released under:
+    <h2>Licence Summary</h2>
+    The platform is released under the <b>Creative Commons Attribution–NonCommercial 4.0 International (CC BY–NC 4.0)</b> licence.
 
-## **Creative Commons Attribution–NonCommercial 4.0 International (CC BY–NC 4.0)**
+    <h4>You May:</h4>
+    <ul>
+        <li>Share the content</li>
+        <li>Adapt and remix the templates</li>
+        <li>Build upon the logic</li>
+        <li>Use for non-commercial educational purposes</li>
+    </ul>
 
-You may:
-- share the content  
-- adapt the templates  
-- build upon the logic  
-- remix educational materials  
+    <h4>Conditions:</h4>
+    <ul>
+        <li>Clear attribution required</li>
+        <li>Use must remain strictly non-commercial</li>
+    </ul>
 
-**As long as:**
-- attribution is clear and visible  
-- usage is strictly **non-commercial**  
+    <h4>You May Not:</h4>
+    <ul>
+        <li>Sell the tool</li>
+        <li>Charge for access or services based on the platform</li>
+        <li>Represent it as a proprietary product</li>
+    </ul>
 
-You may **not**:
-- resell the tool  
-- incorporate it into commercial products  
-- charge for access  
-- represent it as your own proprietary system  
+    For commercial permissions, contact the creator directly.
+    """)
 
-To request commercial permissions or collaboration, please contact the creator directly.
-""")
-
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # -------------------------
-# 3. PRIVACY & POPIA NOTICE
+# 3. PRIVACY & POPIA NOTICE (Tile)
 # -------------------------
 with tab3:
-    st.header("Privacy & POPIA Notice")
+    st.markdown("<div class='im-tile'>", unsafe_allow_html=True)
+
     st.markdown("""
-This platform adheres to the **data minimisation** and **purpose limitation** principles of the Protection of Personal Information Act (POPIA).
+    <h2>Privacy & POPIA Notice</h2>
+    This platform follows <b>data minimisation</b> and <b>purpose limitation</b> principles.
 
-### What Data is Collected
-- Anonymous reflections (private, admin-only)  
-- Optional public comments (user-controlled)  
-- Non-identifying usage counts (module visits)
+    <h4>What Data is Collected?</h4>
+    <ul>
+        <li>Anonymous reflections (private)</li>
+        <li>Optional user comments</li>
+        <li>No tracking, cookies, or analytics</li>
+    </ul>
 
-No personal identifiers are collected, including:
-- names  
-- email addresses  
-- ID numbers  
-- IP addresses  
-- device information  
+    <h4>What Is Not Collected?</h4>
+    No personal identifiers:
+    <ul>
+        <li>Names</li>
+        <li>Email addresses</li>
+        <li>ID numbers</li>
+        <li>IP addresses</li>
+        <li>Device information</li>
+    </ul>
 
-The MVP implements **no cookies**, **no tracking**, **no analytics**, and **no background monitoring**.
+    <h4>Why Data Is Collected</h4>
+    <ul>
+        <li>To support reflection-based learning</li>
+        <li>To improve the educational tool</li>
+        <li>To track module effectiveness (non-identifying)</li>
+    </ul>
 
-### Why Data is Collected
-To support:
-- reflection-based learning  
-- personal insight  
-- improvement of educational tools  
-- understanding module effectiveness  
+    <h4>Storage</h4>
+    Locally stored JSON:
+    <ul>
+        <li><i>reflections.json</i> (private)</li>
+        <li><i>comments.json</i> (optional)</li>
+    </ul>
 
-### Data Storage
-Data is stored locally in:
-- **reflections.json** (private reflections)  
-- **comments.json** (optional public comments)  
+    <h4>User Rights</h4>
+    Users may request deletion of reflections or comments.
 
-All data remains local to your device unless you explicitly export or save it.
+    <h4>Security</h4>
+    Designed to prevent identity inference or profiling.
+    """)
 
-These files are never shared with third parties.
-
-### User Rights
-Because no personal data is stored, POPIA rights relating to personal information do not apply.  
-Users may request deletion of their reflections or comments if needed.
-
-### Security
-The platform is designed to prevent:
-- identity inference  
-- behavioural profiling  
-- personal data leakage  
-
-Future updates may include encryption for added protection.
-""")
-
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # -------------------------
-# 4. POPIA COMPLIANCE MEMO
+# 4. POPIA COMPLIANCE MEMO (Tile)
 # -------------------------
 with tab4:
-    st.header("POPIA Compliance Memo")
+    st.markdown("<div class='im-tile'>", unsafe_allow_html=True)
+
     st.markdown("""
-This memo outlines how the **Innovation Mentor** MVP aligns with POPIA and standard data protection principles.
+    <h2>POPIA Compliance Memo</h2>
 
-### 1. Minimal Data Collection
-Only anonymous, non-personal behavioural data is captured.  
-No personal information is collected or required for platform functionality.
+    <h4>1. Minimal Data Collection</h4>
+    Only anonymous, non-personal data is collected.
 
-### 2. Purpose Limitation
-Data is collected solely to:
-- enable reflection gating  
-- support learning  
-- improve tool effectiveness  
+    <h4>2. Purpose Limitation</h4>
+    Data supports learning, reflection, and tool improvement only.
 
-No secondary or commercial use exists.
+    <h4>3. Storage & Safeguards</h4>
+    No personal identifiers are stored.  
+    JSON files are isolated and low-risk.
 
-### 3. Storage & Safeguards
-Reflections and comments are stored in isolated JSON files, not linked to any personal identity.  
-There is no risk of re-identification because no identifiers are ever stored.
+    <h4>4. Transparency</h4>
+    Users are fully informed on collection and use.
 
-### 4. User Transparency
-Users are clearly informed of:
-- what data is collected  
-- why it is collected  
-- how it is used  
-- their rights  
+    <h4>5. Data Quality & Access</h4>
+    Data is low-risk, anonymous and not shared externally.
 
-This meets POPIA Section 18 transparency requirements.
+    <h4>6. Low-Risk Assessment</h4>
+    The platform qualifies as a <b>low-risk POPIA system</b>.
 
-### 5. Data Quality & Access
-Data is:
-- anonymous  
-- low-risk  
-- not cross-linked  
-- not shared externally  
+    <h4>7. Compliance</h4>
+    Meets POPIA requirements for:
+    <ul>
+        <li>Purpose Limitation</li>
+        <li>Collection Limitation</li>
+        <li>Data Minimisation</li>
+        <li>Security Safeguards</li>
+        <li>Openness</li>
+    </ul>
+    """)
 
-### 6. Risk Assessment
-Because no personally identifiable information is collected, this platform falls within POPIA’s **low-risk category**.
+    st.markdown("</div>", unsafe_allow_html=True)
 
-### 7. Compliance Confirmation
-As an educational MVP, the tool meets all relevant POPIA requirements under:
-- Purpose Limitation  
-- Data Minimisation  
-- Collection Limitation  
-- Security Safeguards  
-- Openness  
-
-This memo may evolve as the platform grows into a multi-user system.
-""")
-
+# ----------------------------------------------------
+# CLOSE WRAPPER
+# ----------------------------------------------------
+st.markdown("</div>", unsafe_allow_html=True)
