@@ -64,7 +64,7 @@ with tab1:
     st.markdown("<div class='im-tile'>", unsafe_allow_html=True)
 
     st.markdown("""
-    <h2>Terms of Use</h2>
+<h2>Terms of Use</h2>
     These Terms of Use govern your access to and use of the <b>Innovation Mentor</b> platform.
 
     <h4>1. Purpose of the Platform</h4>
