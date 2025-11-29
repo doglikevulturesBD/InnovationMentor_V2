@@ -2,14 +2,46 @@ import streamlit as st
 import json
 import textwrap
 
-# -------------------------------
-# Load Data
-# -------------------------------
+# --------------------------------------
+# PAGE CONFIG
+# --------------------------------------
+st.set_page_config(page_title="Business Model Selector", layout="wide")
+
+# --------------------------------------
+# LOAD CSS
+# --------------------------------------
+def local_css(name):
+    with open(name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("styles.css")
+
+# --------------------------------------
+# HERO (same as homepage/TRl)
+# --------------------------------------
+hero_html = """
+<div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-particles"></div>
+
+    <div class="hero-content">
+        <h1 class="hero-title">Business Model Selector</h1>
+        <p class="hero-sub">Assists in selecting a business model.</p>
+    </div>
+</div>
+"""
+st.markdown(hero_html, unsafe_allow_html=True)
+
+
+# --------------------------------------
+# LOAD DATA
+# --------------------------------------
 with open("data/business_models.json", "r") as f:
     BUSINESS_MODELS = json.load(f)
 
 with open("data/archetype_tags.json", "r") as f:
     ARCHETYPE_TAGS = json.load(f)
+
 
 MATURITY_MAP = {
     "emerging": 0.3,
@@ -17,9 +49,10 @@ MATURITY_MAP = {
     "dominant": 1.0
 }
 
-# -------------------------------
-# Scoring Function
-# -------------------------------
+
+# --------------------------------------
+# SCORING LOGIC (unchanged)
+# --------------------------------------
 def score_model(model, archetype_tags):
     tag_overlap = len(set(model["tags"]) & set(archetype_tags)) / len(model["tags"])
     maturity_w = MATURITY_MAP[model["maturity_level"]]
@@ -29,42 +62,9 @@ def score_model(model, archetype_tags):
     return final_score
 
 
-# -------------------------------
-# Page Setup + Hero
-# -------------------------------
-import streamlit as st
-import json
-import textwrap
-
-st.set_page_config(page_title="Business Model Selector", layout="wide")
-
-# Load CSS
-def local_css(name):
-    with open(name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
-local_css("styles.css")
-
-# ---------------- HERO ----------------
- HERO BANNER — SAME STYLE AS HOME PAGE
-# ------------------------------------------------------
-hero_html = """
-<div class="hero sub-hero">
-<div class="hero-glow"></div>
-<div class="hero-particles"></div>
-
-<div class="hero-content">
-<h1 class="hero-title">Business Model Selector</h1>
-<p class="hero-sub">Assists in selecting a business model.</p>
-</div>
-</div>
-"""
-st.markdown(hero_html, unsafe_allow_html=True)
-
-
-# -------------------------------
-# Session State
-# -------------------------------
+# --------------------------------------
+# SESSION STATE
+# --------------------------------------
 if "archetype" not in st.session_state:
     st.session_state["archetype"] = None
 
@@ -72,9 +72,9 @@ if "secondary_done" not in st.session_state:
     st.session_state["secondary_done"] = False
 
 
-# -------------------------------
+# --------------------------------------
 # STEP 1 — Archetype Selection
-# -------------------------------
+# --------------------------------------
 if st.session_state["archetype"] is None:
 
     st.markdown("<div class='section-block'>", unsafe_allow_html=True)
@@ -90,9 +90,9 @@ if st.session_state["archetype"] is None:
     st.markdown("</div>", unsafe_allow_html=True)
 
 
-# -------------------------------
-# STEP 2 — Secondary Profiling
-# -------------------------------
+# --------------------------------------
+# STEP 2 — Secondary Questions
+# --------------------------------------
 else:
     archetype = st.session_state["archetype"]
     archetype_tags = ARCHETYPE_TAGS[archetype]
@@ -121,20 +121,18 @@ else:
         )
 
         if st.button("Generate Recommendations 🚀", use_container_width=True):
-            st.session_state.update({
-                "secondary_done": True,
-                "q1": q1,
-                "q2": q2,
-                "q3": q3
-            })
+            st.session_state["secondary_done"] = True
+            st.session_state["q1"] = q1
+            st.session_state["q2"] = q2
+            st.session_state["q3"] = q3
             st.rerun()
 
         st.markdown("</div>", unsafe_allow_html=True)
 
 
-# -------------------------------
-# STEP 3 — Recommendations
-# -------------------------------
+# --------------------------------------
+# STEP 3 — Results
+# --------------------------------------
 if st.session_state["secondary_done"]:
 
     # Score models
@@ -145,24 +143,23 @@ if st.session_state["secondary_done"]:
     st.markdown("<div class='section-block'>", unsafe_allow_html=True)
     st.markdown("## 🔥 Top 5 Recommended Business Models")
 
-   for bm, score in top5:
-    overlap = len(set(bm["tags"]) & set(archetype_tags))
+    for bm, score in top5:
+        overlap = len(set(bm["tags"]) & set(archetype_tags))
 
-    tile = f"""
-    <div class="bm-tile">
-    <h3>{bm['name']}</h3>
-    <p><b>Score:</b> {score:.2f}</p>
-    <p>{bm['description']}</p>
-    <p><b>Tag Fit:</b> {overlap} aligned traits</p>
-    <p><b>Success Rate:</b> {int(bm['success_score']*100)}%</p>
-    <p><b>Maturity:</b> {bm['maturity_level'].title()}</p>
-    </div>
-    """
+        tile = f"""
+        <div class="bm-tile">
+            <h3>{bm['name']}</h3>
+            <p><b>Score:</b> {score:.2f}</p>
+            <p>{bm['description']}</p>
+            <p><b>Tag Fit:</b> {overlap} aligned traits</p>
+            <p><b>Success Rate:</b> {int(bm['success_score']*100)}%</p>
+            <p><b>Maturity:</b> {bm['maturity_level'].title()}</p>
+        </div>
+        """
+        st.markdown(tile, unsafe_allow_html=True)
 
-    st.markdown(tile, unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-
-    # Expand full list
     with st.expander("📚 See all 70 business models"):
         for bm in BUSINESS_MODELS:
             st.markdown(f"### {bm['name']}")
@@ -170,7 +167,9 @@ if st.session_state["secondary_done"]:
             st.caption(f"Tags: {', '.join(bm['tags'])}")
 
     st.divider()
+
     if st.button("🔄 Start Over", use_container_width=True):
         st.session_state.clear()
         st.rerun()
+
 
