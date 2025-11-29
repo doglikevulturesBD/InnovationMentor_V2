@@ -32,22 +32,31 @@ def score_model(model, archetype_tags):
 # -------------------------------
 # Page Setup + Hero
 # -------------------------------
+import streamlit as st
+import json
+import textwrap
+
 st.set_page_config(page_title="Business Model Selector", layout="wide")
 
-# Use same hero as home + TRL
-hero_html = textwrap.dedent("""
+# Load CSS
+def local_css(name):
+    with open(name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("styles.css")
+
+# ---------------- HERO ----------------
+hero_html = """
 <div class="hero">
-<div class="hero-glow"></div>
-<div class="hero-particles"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">Business Model Selector</h1>
+        <p class="hero-sub">Find the best-fit pathways for taking your innovation forward.</p>
+    </div>
+</div>
+"""
 
-<div class="hero-content">
-<h1 class="hero-title">Business Model Selector</h1>
-<p class="hero-sub">Find the best business model patterns for your innovation.</p>
-</div>
-</div>
-""")
 st.markdown(hero_html, unsafe_allow_html=True)
-
 
 # -------------------------------
 # Session State
