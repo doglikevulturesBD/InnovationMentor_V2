@@ -146,16 +146,16 @@ if st.session_state["secondary_done"]:
     for bm, score in top5:
         overlap = len(set(bm["tags"]) & set(archetype_tags))
 
-    tile = f"""
-    <div class="bm-tile">
-    <h3>{bm['name']}</h3>
-    <p><b>Score:</b> {score:.2f}</p>
-    <p>{bm['description']}</p>
-    <p><b>Tag Fit:</b> {overlap} aligned traits</p>
-    <p><b>Success Rate:</b> {int(bm['success_score']*100)}%</p>
-    <p><b>Maturity:</b> {bm['maturity_level'].title()}</p>
-    </div>
-    """
+        tile = f"""
+        <div class="bm-tile">
+        <h3>{bm['name']}</h3>
+        <p><b>Score:</b> {score:.2f}</p>
+        <p>{bm['description']}</p>
+        <p><b>Tag Fit:</b> {overlap} aligned traits</p>
+        <p><b>Success Rate:</b> {int(bm['success_score']*100)}%</p>
+        <p><b>Maturity:</b> {bm['maturity_level'].title()}</p>
+        </div>
+        """
     st.markdown(tile, unsafe_allow_html=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
