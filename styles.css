@@ -5,10 +5,15 @@
     box-sizing: border-box;
 }
 
-body, html {
+html, body {
     background: #080c1f !important;
     color: #e8ecf7;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Streamlit main wrapper */
+.stApp {
+    background: #080c1f !important;
 }
 
 /* -------------------------
@@ -22,7 +27,7 @@ body, html {
     border-radius: 14px;
     overflow: hidden;
     margin-bottom: 40px;
-    background: rgba(12, 18, 40, 0.65);
+    background: rgba(12, 18, 40, 0.8);
     border: 1px solid rgba(0,255,255,0.12);
     backdrop-filter: blur(6px);
 }
@@ -54,7 +59,7 @@ body, html {
         radial-gradient(circle, rgba(255,70,200,0.14) 2px, transparent 2px);
     background-size: 140px 140px;
     animation: drift 24s linear infinite;
-    opacity: 0.3;
+    opacity: 0.35;
     z-index: 2;
 }
 
@@ -80,7 +85,7 @@ body, html {
     opacity: 0.85;
 }
 
-/* Animation */
+/* Animations */
 @keyframes drift {
     0% { transform: translate(0,0); }
     50% { transform: translate(-15%,-15%); }
@@ -109,9 +114,9 @@ body, html {
     text-decoration: none;
     text-align: center;
     padding: 20px;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     border-radius: 14px;
-    background: rgba(18, 24, 45, 0.65);
+    background: rgba(18, 24, 45, 0.75);
     border: 1px solid rgba(0,255,255,0.12);
     color: #e8ecf7;
     transition: 0.25s;
@@ -131,7 +136,7 @@ body, html {
 .section-block {
     margin: 35px 0;
     padding: 20px;
-    background: rgba(20, 24, 45, 0.45);
+    background: rgba(20, 24, 45, 0.55);
     border-radius: 12px;
     border: 1px solid rgba(0,255,255,0.1);
 }
@@ -145,14 +150,9 @@ body, html {
 }
 
 .section-text {
-    font-size: 1.1rem;
-    line-height: 1.55;
-    opacity: 0.85;
-}
-
-.feature-list li {
-    margin-bottom: 10px;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    opacity: 0.9;
 }
 
 /* FOOTER */
@@ -161,4 +161,5 @@ body, html {
     padding: 20px;
     text-align: center;
     opacity: 0.7;
+    font-size: 0.9rem;
 }
