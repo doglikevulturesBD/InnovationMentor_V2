@@ -1,7 +1,6 @@
 # ============================================
 # INNOVATION MENTOR APP
 # PAGE: 06_Commercialisation_Strategy.py
-# FUNCTION: Combined Commercialisation & Marketing Strategy Advisor
 # ============================================
 
 import streamlit as st
@@ -9,23 +8,64 @@ import json
 from pathlib import Path
 from collections import defaultdict
 
-# ----------------------------
+# ------------------------------------------------------
 # PAGE CONFIG
-# ----------------------------
-st.set_page_config(page_title="Commercialisation & Marketing Strategy", layout="wide")
-st.title("Commercialisation & Marketing Strategy Advisor")
-st.caption("Identify the most suitable commercialisation route and top marketing approaches to take your innovation to market.")
+# ------------------------------------------------------
+st.set_page_config(
+    page_title="Commercialisation & Marketing Strategy",
+    page_icon="🚀",
+    layout="wide"
+)
 
-st.markdown("---")
+# ------------------------------------------------------
+# LOAD GLOBAL CSS (same as TRL, Market, Financial pages)
+# ------------------------------------------------------
+def local_css(file_name: str):
+    with open(file_name, "r") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("styles.css")
+
+
+# ------------------------------------------------------
+# HERO BANNER (Unified Innovation Mentor theme)
+# ------------------------------------------------------
+hero_html = """
+<div class="hero sub-hero">
+    <div class="hero-glow"></div>
+    <div class="hero-particles"></div>
+
+    <div class="hero-content">
+        <h1 class="hero-title">Commercialisation Strategy</h1>
+        <p class="hero-sub">Discover the most effective pathway and marketing system to take your innovation to market.</p>
+    </div>
+</div>
+"""
+st.markdown(hero_html, unsafe_allow_html=True)
+
+
+# ------------------------------------------------------
+# SECTION WRAPPER OPEN
+# ------------------------------------------------------
+st.markdown("<div class='section-block'>", unsafe_allow_html=True)
+
+
+# ------------------------------------------------------
+# PAGE INTRO
+# ------------------------------------------------------
+st.caption("Identify the most suitable commercialisation route and top marketing approaches for launch.")
+
 st.markdown("""
-This compact advisor helps you narrow down **how** you should commercialise your innovation  
-(licensing, direct sales, partnerships, platform model, distributor-led, etc.)  
-and the **marketing strategies** that best match your offering, TRL, and customer readiness.
+This compact advisor helps you narrow down **how** you should commercialise  
+(licensing, direct sales, partnerships, tender-driven, platform model, etc.)  
+and the **marketing strategies** that best fit your TRL, customer type, and market conditions.
 """)
 
-# ----------------------------
+st.markdown("---")
+
+# ------------------------------------------------------
 # LOAD QUESTIONNAIRE
-# ----------------------------
+# ------------------------------------------------------
 data_path = Path("data/commercialisation_questionnaire.json")
 
 if not data_path.exists():
@@ -35,15 +75,16 @@ if not data_path.exists():
 with open(data_path, "r", encoding="utf-8") as f:
     questions = json.load(f)["questions"]
 
-# ----------------------------
-# INITIALISE SCORING BUCKETS
-# ----------------------------
+# ------------------------------------------------------
+# INITIALISE SCORING
+# ------------------------------------------------------
 commercialisation_scores = defaultdict(int)
 marketing_scores = defaultdict(int)
 
-# ----------------------------
-# QUESTIONNAIRE
-# ----------------------------
+
+# ------------------------------------------------------
+# QUESTIONNAIRE SECTION
+# ------------------------------------------------------
 st.subheader("📝 Questionnaire")
 
 for i, q in enumerate(questions, start=1):
@@ -58,7 +99,7 @@ for i, q in enumerate(questions, start=1):
     )
     st.write("")  # spacing
 
-    # Map scoring to selected option
+    # Apply scoring
     for opt in q["options"]:
         if opt["text"] == answer:
             for c_item in opt["adds"]["commercialisation"]:
@@ -68,14 +109,15 @@ for i, q in enumerate(questions, start=1):
 
     st.divider()
 
-# ----------------------------
-# GENERATE RECOMMENDATIONS
-# ----------------------------
+
+# ------------------------------------------------------
+# GENERATE STRATEGY OUTPUT
+# ------------------------------------------------------
 if st.button("🔍 Generate My Strategy Mix", use_container_width=True):
     st.markdown("---")
     st.subheader("📊 Your Strategy Mix")
 
-    # Sort scores
+    # Sort results
     sorted_c = sorted(commercialisation_scores.items(), key=lambda x: x[1], reverse=True)
     sorted_m = sorted(marketing_scores.items(), key=lambda x: x[1], reverse=True)
 
@@ -86,16 +128,16 @@ if st.button("🔍 Generate My Strategy Mix", use_container_width=True):
     top_pathway = sorted_c[0][0]
     top3_marketing = [m for m, s in sorted_m[:3]]
 
-    # ----------------------------------
-    # DISPLAY MAIN RECOMMENDATIONS
-    # ----------------------------------
+    # --------------------------------------------------
+    # MAIN RECOMMENDATIONS
+    # --------------------------------------------------
     st.success(f"**Recommended Commercialisation Pathway:** {top_pathway}")
     st.info(f"**Top 3 Marketing Strategies:** {', '.join(top3_marketing)}")
 
     st.markdown("---")
     st.subheader("🧩 Detailed Strategy Breakdown")
 
-    # Load the rationale file
+    # Load rationale
     rationale_path = Path("data/commercialisation_rationale.json")
     rationale_data = {}
 
@@ -103,18 +145,18 @@ if st.button("🔍 Generate My Strategy Mix", use_container_width=True):
         with open(rationale_path, "r", encoding="utf-8") as f:
             rationale_data = json.load(f)
 
-    # --- Commercialisation Pathway Breakdown ---
+    # Commercialisation detail
     if top_pathway in rationale_data:
         block = rationale_data[top_pathway]
 
-        with st.expander(f"🚀 {top_pathway} – Commercialisation Details"):
+        with st.expander(f"🚀 {top_pathway} – Commercialisation Detail"):
             st.markdown(f"**Description:** {block['description']}")
             st.markdown("**Next Steps:**")
             for step in block["next_steps"]:
                 st.markdown(f"- {step}")
             st.markdown(f"**Cost / Complexity:** {block['cost']}")
 
-    # --- Marketing Strategies Breakdown ---
+    # Marketing detail
     for m in top3_marketing:
         if m in rationale_data:
             blk = rationale_data[m]
@@ -125,5 +167,10 @@ if st.button("🔍 Generate My Strategy Mix", use_container_width=True):
                     st.markdown(f"- {t}")
                 st.markdown(f"**Innovation Fit:** {blk['innovation']}")
 
-    st.caption("A downloadable Go-to-Market plan (phase 2) will include timelines, positioning, and channel KPIs.")
+    st.caption("A downloadable Go-to-Market plan (phase 2) will include positioning, segmentation, KPIs and timelines.")
 
+
+# ------------------------------------------------------
+# SECTION WRAPPER CLOSE
+# ------------------------------------------------------
+st.markdown("</div>", unsafe_allow_html=True)
