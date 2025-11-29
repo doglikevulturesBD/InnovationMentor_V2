@@ -155,6 +155,58 @@ html, body {
     opacity: 0.9;
 }
 
+/* ==========================================
+   FUTURISTIC HOLOGRAM TILES (Version B)
+========================================== */
+
+.holo-tile {
+    display: block;
+    padding: 26px;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-radius: 18px;
+    color: #e8f9ff;
+    text-decoration: none;
+    
+    /* Hologram background */
+    background: linear-gradient(
+        135deg,
+        rgba(0, 255, 255, 0.12),
+        rgba(120, 80, 255, 0.12),
+        rgba(255, 80, 200, 0.12)
+    );
+    border: 1px solid rgba(0, 255, 255, 0.18);
+
+    backdrop-filter: blur(12px);
+    box-shadow: 
+        0 0 20px rgba(0,255,255,0.12),
+        inset 0 0 20px rgba(0,255,255,0.05);
+
+    transition: 0.35s ease;
+    transform-style: preserve-3d;
+    perspective: 900px;
+}
+
+/* Hover effects */
+.holo-tile:hover {
+    transform: translateY(-10px) scale(1.03) rotateX(3deg);
+    border-color: rgba(0,255,255,0.45);
+    box-shadow: 
+        0 0 25px rgba(0,255,255,0.4),
+        0 0 50px rgba(140,70,255,0.25),
+        inset 0 0 20px rgba(0,255,255,0.2);
+}
+
+/* Tile container */
+.holo-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    margin-top: 35px;
+}
+
+
 /* FOOTER */
 .footer {
     margin-top: 40px;
