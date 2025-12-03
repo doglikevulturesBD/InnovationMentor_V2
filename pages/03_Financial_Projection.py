@@ -7,7 +7,8 @@ import pandas as pd
 import io
 from datetime import datetime
 
-st.set_page_config(page_title="Financial Projections", , layout="wide")
+# ❗ Fixed syntax: removed stray comma after page_title
+st.set_page_config(page_title="Financial Projections", layout="wide")
 
 
 # ------------------------------------------------------
@@ -143,13 +144,14 @@ def success_prob(df, discount, n):
 
 def metrics(df, discount):
     flows = df["Net Cashflow (R)"].tolist()
-    # Move CAPEX of Year 1 to time 0
+    # Move CAPEX of Year 1 to time 0 for IRR & payback only (logic unchanged)
     irr_val = irr([-float(df["CAPEX (R)"].iloc[0])] + flows[1:])
     return {
         "NPV": npv(discount, flows),
         "IRR": irr_val,
         "Payback": payback([-float(df["CAPEX (R)"].iloc[0])] + flows[1:]),
-        "Profitability Index": npv(discount, flows) / max(1, df["CAPEX (R)"].sum())
+        # ❗ Key name fixed to match mets["PI"] usage (formula unchanged)
+        "PI": npv(discount, flows) / max(1, df["CAPEX (R)"].sum())
     }
 
 def scenario(df, mode):
@@ -206,7 +208,6 @@ def scenario_tab(label, key, default_df):
     st.caption("Edit Units, Price, COGS, OPEX, and CAPEX only. Net Cashflow is calculated automatically.")
 
     df = st.session_state[key]
-    editable_cols = [c for c in df.columns if c != "Net Cashflow (R)"]
     edited = st.data_editor(
         df,
         use_container_width=True,
@@ -236,13 +237,25 @@ def scenario_tab(label, key, default_df):
             tips.append("IRR 8–15% — fair; suitable for grants/blended funds.")
         else:
             tips.append("IRR above 15% — attractive investment profile.")
+
         if mets["Payback"] and mets["Payback"] > 10:
             tips.append("Payback >10 years — consider phasing CAPEX.")
         elif mets["Payback"] and mets["Payback"] > 5:
             tips.append("Payback 5–10 years — typical for infra projects.")
         else:
             tips.append("Payback <5 years — highly investable.")
+
+        # 🔍 Extra explanation for Profitability Index
+        pi = mets["PI"]
+        if pi < 1:
+            tips.append(f"Profitability Index {pi:.2f} — for every R1 invested, NPV is less than R1. Value-destructive on a pure financial basis.")
+        elif 1 <= pi < 1.5:
+            tips.append(f"Profitability Index {pi:.2f} — borderline to acceptable. Strengthen revenue assumptions or derisk costs.")
+        else:
+            tips.append(f"Profitability Index {pi:.2f} — strong; NPV is well above total CAPEX. Good signal to investors.")
+
         tips.append(f"Success Probability {prob:.0f}% (based on {n_sims} simulations).")
+
         for t in tips:
             st.markdown("- " + t)
 
@@ -264,14 +277,19 @@ with tabs[3]:
         ["Baseline", mets_base["NPV"], mets_base["IRR"]*100, mets_base["Payback"], mets_base["PI"], prob_base],
         ["Optimistic", mets_opt["NPV"], mets_opt["IRR"]*100, mets_opt["Payback"], mets_opt["PI"], prob_opt],
         ["Pessimistic", mets_pes["NPV"], mets_pes["IRR"]*100, mets_pes["Payback"], mets_pes["PI"], prob_pes]
-    ], columns=["Scenario", "NPV (R)", "IRR (%)", "Payback (yrs)", "PI", "Success Prob. (%)"])
-    st.dataframe(summary.style.format({
-        "NPV (R)": "{:,.0f}",
-        "IRR (%)": "{:.1f}",
-        "Payback (yrs)": "{:.1f}",
-        "Profitability Index": "{:.2f}",
-        "Success Prob. (%)": "{:.1f}"
-    }), hide_index=True, use_container_width=True)
+    ], columns=["Scenario", "NPV (R)", "IRR (%)", "Payback (yrs)", "Profitability Index", "Success Prob. (%)"])
+
+    st.dataframe(
+        summary.style.format({
+            "NPV (R)": "{:,.0f}",
+            "IRR (%)": "{:.1f}",
+            "Payback (yrs)": "{:.1f}",
+            "Profitability Index": "{:.2f}",
+            "Success Prob. (%)": "{:.1f}"
+        }),
+        hide_index=True,
+        use_container_width=True
+    )
 
     # --- PDF export ---
     from reportlab.lib.pagesizes import A4
@@ -287,7 +305,11 @@ with tabs[3]:
         t.textLine(f"Financial Projection Summary — {datetime.now().strftime('%Y-%m-%d %H:%M')}")
         t.textLine("")
         for row in summary.itertuples(index=False):
-            t.textLine(f"{row[0]}: NPV R{row[1]:,.0f} | IRR {row[2]:.1f}% | Payback {row[3]:.1f} yrs | Profitability Index {row[4]:.2f} | Success {row[5]:.1f}%")
+            t.textLine(
+                f"{row[0]}: NPV R{row[1]:,.0f} | IRR {row[2]:.1f}% | "
+                f"Payback {row[3]:.1f} yrs | Profitability Index {row[4]:.2f} | "
+                f"Success {row[5]:.1f}%"
+            )
         c.drawText(t)
         c.showPage()
         c.save()
@@ -295,8 +317,12 @@ with tabs[3]:
         buf.close()
         return pdf
 
-    st.download_button("⬇️ Download PDF Summary", make_pdf(),
-                       file_name="financial_projection_summary.pdf",
-                       mime="application/pdf",
-                       use_container_width=True)
+    st.download_button(
+        "⬇️ Download PDF Summary",
+        make_pdf(),
+        file_name="financial_projection_summary.pdf",
+        mime="application/pdf",
+        use_container_width=True
+    )
+
 st.markdown("</div>", unsafe_allow_html=True)
