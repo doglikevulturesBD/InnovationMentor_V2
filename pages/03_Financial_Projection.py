@@ -7,7 +7,7 @@ import pandas as pd
 import io
 from datetime import datetime
 
-st.set_page_config(page_title="Financial Projections", page_icon="💰", layout="wide")
+st.set_page_config(page_title="Financial Projections", , layout="wide")
 
 
 # ------------------------------------------------------
@@ -30,7 +30,7 @@ hero_html = """
 
 <div class="hero-content">
 <h1 class="hero-title">Financial Projections</h1>
-<p class="hero-sub">Investment metrics and scenarios as a strating point.</p>
+<p class="hero-sub">Investment metrics and scenarios as a starting point.</p>
 </div>
 </div>
 """
@@ -269,7 +269,7 @@ with tabs[3]:
         "NPV (R)": "{:,.0f}",
         "IRR (%)": "{:.1f}",
         "Payback (yrs)": "{:.1f}",
-        "PI": "{:.2f}",
+        "Profitability Index": "{:.2f}",
         "Success Prob. (%)": "{:.1f}"
     }), hide_index=True, use_container_width=True)
 
