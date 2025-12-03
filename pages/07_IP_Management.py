@@ -35,7 +35,7 @@ hero_html = """
 
 <div class="hero-content">
 <h1 class="hero-title">Intellectual Property Management</h1>
-<p class="hero-sub">Determine the strongest IP protection pathway for your innovation.</p>
+<p class="hero-sub"></p>
 </div>
 </div>
 """
