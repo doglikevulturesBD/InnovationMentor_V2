@@ -63,7 +63,6 @@ st.markdown("<div class='section-block'>", unsafe_allow_html=True)
 # CONTENT BEGINS HERE (your original content)
 # ----------------------------------------------------------
 
-st.caption("A compact, structured worksheet to build confidence in your **market**, **customers**, and **positioning**.")
 
 st.markdown("""
 This module feeds directly into your **Commercialisation Strategy**, **Business Model**,  
