@@ -26,7 +26,7 @@ hero_html = """
 
 <div class="hero-content">
 <h1 class="hero-title">Business Model Selector</h1>
-<p class="hero-sub">Assists in selecting a business model.</p>
+<p class="hero-sub">Assists in selecting a business model for your innovation.</p>
 </div>
 </div>
 """
