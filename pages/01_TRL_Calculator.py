@@ -104,9 +104,9 @@ else:
     trl = calculate_trl(st.session_state.answers)
     label = "TRL 0 (pre-TRL)" if trl == 0 else f"TRL {trl} / 9"
 
-    st.success(f"### 🎯 Your Technology Readiness Level: **{label}**")
+    st.success(f"### Your Technology Readiness Level: **{label}**")
 
-    st.markdown("### 🔍 What This Means")
+    st.markdown("### What This Means")
     st.write(trl_description(trl))
 
     st.markdown("### 📝 Your Responses")
