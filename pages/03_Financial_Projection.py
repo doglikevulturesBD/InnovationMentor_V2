@@ -30,7 +30,7 @@ hero_html = """
 
 <div class="hero-content">
 <h1 class="hero-title">Financial Projections</h1>
-<p class="hero-sub">Investment metrics, scenarios, and Monte Carlo risk modelling.</p>
+<p class="hero-sub">Investment metrics and scenarios as a strating point.</p>
 </div>
 </div>
 """
