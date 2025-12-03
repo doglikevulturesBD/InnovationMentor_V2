@@ -55,7 +55,7 @@ tiles_html = textwrap.dedent("""
 <a class="holo-tile" href="Financial_Options">Financial Options</a>
 <a class="holo-tile" href="Legal_and_Compliance">Legal Compliance</a>
 <a class="holo-tile" href="Feedback">Feedback</a>
-<a class="holo-tile" href="Export_Report">Export Tools</a>
+<a class="holo-tile" href="Export_Report">Export Tools (Coming Soon)</a>
 
 </div>
 """)
