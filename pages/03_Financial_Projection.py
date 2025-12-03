@@ -149,7 +149,7 @@ def metrics(df, discount):
         "NPV": npv(discount, flows),
         "IRR": irr_val,
         "Payback": payback([-float(df["CAPEX (R)"].iloc[0])] + flows[1:]),
-        "PI": npv(discount, flows) / max(1, df["CAPEX (R)"].sum())
+        "Profitability Index": npv(discount, flows) / max(1, df["CAPEX (R)"].sum())
     }
 
 def scenario(df, mode):
@@ -225,7 +225,7 @@ def scenario_tab(label, key, default_df):
     c1.metric("NPV (R)", f"{mets['NPV']:,.0f}")
     c2.metric("IRR (%)", f"{mets['IRR']*100:.1f}")
     c3.metric("Payback (yrs)", f"{mets['Payback']:.1f}" if mets['Payback'] else "—")
-    c4.metric("PI", f"{mets['PI']:.2f}")
+    c4.metric("Profitability Index", f"{mets['PI']:.2f}")
     c5.metric("Success Prob. (%)", f"{prob:.1f}")
 
     with st.expander("Mentor Tips"):
@@ -287,7 +287,7 @@ with tabs[3]:
         t.textLine(f"Financial Projection Summary — {datetime.now().strftime('%Y-%m-%d %H:%M')}")
         t.textLine("")
         for row in summary.itertuples(index=False):
-            t.textLine(f"{row[0]}: NPV R{row[1]:,.0f} | IRR {row[2]:.1f}% | Payback {row[3]:.1f} yrs | PI {row[4]:.2f} | Success {row[5]:.1f}%")
+            t.textLine(f"{row[0]}: NPV R{row[1]:,.0f} | IRR {row[2]:.1f}% | Payback {row[3]:.1f} yrs | Profitability Index {row[4]:.2f} | Success {row[5]:.1f}%")
         c.drawText(t)
         c.showPage()
         c.save()
