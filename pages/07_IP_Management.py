@@ -105,7 +105,7 @@ sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
 # RESULTS SECTION
 # ------------------------------------------------------
 st.markdown("---")
-if st.button("🔍 Show My IP Recommendation", use_container_width=True):
+if st.button("Show My IP Recommendation", use_container_width=True):
 
     primary_ip, p_score = sorted_scores[0]
     secondary_ip, s_score = sorted_scores[1]
@@ -115,7 +115,7 @@ if st.button("🔍 Show My IP Recommendation", use_container_width=True):
     # ------------------------------
     st.markdown(f"""
     <div class="im-tile">
-        <h3>🏆 Primary Recommendation</h3>
+        <h3>Primary Recommendation</h3>
         <h2 style="margin-top:-5px;">{primary_ip}</h2>
         <p><b>Score:</b> {p_score}</p>
     </div>
@@ -126,7 +126,7 @@ if st.button("🔍 Show My IP Recommendation", use_container_width=True):
     # ------------------------------
     st.markdown(f"""
     <div class="im-tile">
-        <h3>✨ Secondary Consideration</h3>
+        <h3>Secondary Consideration</h3>
         <h3 style="margin-top:-5px;">{secondary_ip}</h3>
         <p><b>Score:</b> {s_score}</p>
     </div>
@@ -141,7 +141,7 @@ if st.button("🔍 Show My IP Recommendation", use_container_width=True):
     # ------------------------------
     st.markdown(f"""
     <div class="im-tile">
-        <h3>📘 Description</h3>
+        <h3>Description</h3>
         <p>{info.get('description', 'No description available.')}</p>
     </div>
     """, unsafe_allow_html=True)
@@ -154,7 +154,7 @@ if st.button("🔍 Show My IP Recommendation", use_container_width=True):
 
     st.markdown(f"""
     <div class="im-tile">
-        <h3>🧭 Recommended Next Steps</h3>
+        <h3>Recommended Next Steps</h3>
         {steps_html}
     </div>
     """, unsafe_allow_html=True)
@@ -165,7 +165,7 @@ if st.button("🔍 Show My IP Recommendation", use_container_width=True):
     # ------------------------------
     st.markdown(f"""
     <div class="im-tile">
-        <h3>💰 Estimated Cost</h3>
+        <h3>Estimated Cost</h3>
         <p>{info.get('approx_cost', 'Cost information not available.')}</p>
     </div>
     """, unsafe_allow_html=True)
@@ -202,7 +202,7 @@ if st.button("🔍 Show My IP Recommendation", use_container_width=True):
 
     st.markdown(f"""
     <div class="im-tile">
-        <h3>⚠️ Risks & Limitations</h3>
+        <h3>Risks & Limitations</h3>
         {risk_html}
     </div>
     """, unsafe_allow_html=True)
