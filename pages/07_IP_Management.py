@@ -213,7 +213,7 @@ if st.button("Show My IP Recommendation", use_container_width=True):
     # ------------------------------
     st.markdown("""
     <div class="im-tile">
-        <h3>📎 Disclaimer</h3>
+        <h3> Disclaimer</h3>
         <p>This tool provides early-stage guidance only.  
         For formal legal advice, consult a <b>registered IP attorney</b> or specialist.</p>
     </div>
