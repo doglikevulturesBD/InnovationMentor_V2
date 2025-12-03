@@ -1,6 +1,6 @@
 # ============================================
 # INNOVATION MENTOR APP
-# PAGE: Legal & Compliance (Tile Edition)
+# PAGE: Legal & Compliance (Updated Edition)
 # ============================================
 
 import streamlit as st
@@ -18,8 +18,11 @@ st.set_page_config(
 # LOAD GLOBAL CSS
 # ----------------------------------------------------
 def local_css(file_name: str):
-    with open(file_name, "r") as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    try:
+        with open(file_name, "r") as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    except:
+        pass
 
 local_css("styles.css")
 
@@ -33,15 +36,13 @@ hero_html = """
 
 <div class="hero-content">
 <h1 class="hero-title">Legal & Compliance</h1>
-<p class="hero-sub">Clear guidance on terms, licensing, privacy and POPIA alignment.</p>
+<p class="hero-sub">Clarity on purpose, boundaries, privacy and responsible use.</p>
 </div>
 </div>
 """
 st.markdown(hero_html, unsafe_allow_html=True)
 
 # ----------------------------------------------------
-st.set_page_config(page_title="Legal & Compliance", layout="wide")
-
 st.title("⚖️ Legal & Compliance")
 st.markdown("---")
 
@@ -52,177 +53,187 @@ tab1, tab2, tab3, tab4 = st.tabs([
     "POPIA Memo"
 ])
 
-# -------------------------------------------------
-# 1. TERMS OF USE (Tile)
-# -------------------------------------------------
+# ----------------------------------------------------
+# 1. TERMS OF USE
+# ----------------------------------------------------
 with tab1:
     st.markdown("<div class='im-tile'>", unsafe_allow_html=True)
-
     st.markdown(
         """
         <h2>Terms of Use</h2>
-        <p>These Terms of Use govern access to and use of the <b>Innovation Mentor</b> platform.</p>
+        <p>The <b>Innovation Mentor</b> platform is a personal, independent project created by the developer.  
+        It is <b>not affiliated with, endorsed by, or connected to any employer, agency, or organisation</b>.  
+        All content is provided in a personal capacity only.</p>
 
         <h4>1. Purpose of the Platform</h4>
-        <p>The platform is an independent educational tool.  
-        It is <b>not affiliated</b> with any organisation, employer, or agency.</p>
+        <p>This platform is an educational and reflective tool designed to support innovators with 
+        early thinking, structure, and frameworks.  
+        It is <b>not</b> an official assessment tool of any institution.</p>
 
         <h4>2. No Professional or Official Advice</h4>
-        <p>This tool does <b>not</b> provide legal, financial, engineering, IP, or funding advice.  
-        It must not be used for:</p>
+        <p>The platform does <b>not</b> provide:</p>
         <ul>
-            <li>official assessments</li>
-            <li>funding or investment decisions</li>
-            <li>due diligence</li>
-            <li>organisational evaluation</li>
+            <li>legal advice</li>
+            <li>financial or investment advice</li>
+            <li>IP, engineering or technical certification</li>
+            <li>funding recommendations or due diligence outputs</li>
+            <li>formal organisational evaluations</li>
         </ul>
+        <p>All insights are general, educational, and high-level.</p>
 
         <h4>3. Acceptable Use</h4>
         <ul>
-            <li>Do not misuse or reverse-engineer the system.</li>
-            <li>Do not upload harmful content or malicious code.</li>
-            <li>Do not bypass reflection gates.</li>
-            <li>Do not use the platform unlawfully.</li>
+            <li>Do not misuse, reverse-engineer, or attempt to access backend systems.</li>
+            <li>Do not upload harmful content.</li>
+            <li>Do not bypass reflection gates or alter scoring logic.</li>
+            <li>Use the platform in a lawful, ethical manner.</li>
         </ul>
 
         <h4>4. Intellectual Property</h4>
-        <p>All logic, frameworks, and content belong to the creator.</p>
+        <p>All logic, frameworks, design systems, content, and educational material belong to the creator.  
+        Unauthorised commercial reuse is not permitted.</p>
 
         <h4>5. Liability Limitation</h4>
-        <p>The creator is not liable for losses, decisions, or misinterpretations.</p>
+        <p>The creator accepts no responsibility for decisions, interpretations, losses, or actions taken 
+        using this tool. Users must apply their own judgement.</p>
 
         <h4>6. Updates</h4>
-        <p>Terms may change as the platform evolves.</p>
+        <p>These Terms may be updated as the platform grows.</p>
 
-        <p><br>© 2025 Innovation Mentor Platform — Educational use only.</p>
+        <p><br>© 2025 Innovation Mentor — Personal, independent project.</p>
         """,
         unsafe_allow_html=True
     )
-
     st.markdown("</div>", unsafe_allow_html=True)
 
-# -------------------------------------------------
+# ----------------------------------------------------
 # 2. LICENCE SUMMARY
-# -------------------------------------------------
+# ----------------------------------------------------
 with tab2:
     st.markdown("<div class='im-tile'>", unsafe_allow_html=True)
-
     st.markdown(
         """
         <h2>Licence Summary</h2>
-        <p>The platform is licensed under the 
-        <b>Creative Commons Attribution–NonCommercial 4.0 (CC BY–NC 4.0)</b>.</p>
+        <p>Innovation Mentor is released under the 
+        <b>Creative Commons Attribution–NonCommercial 4.0 (CC BY–NC 4.0)</b> licence.</p>
 
         <h4>You May:</h4>
         <ul>
-            <li>Share</li>
-            <li>Adapt</li>
-            <li>Remix</li>
-            <li>Use for non-commercial education</li>
+            <li>Share the platform</li>
+            <li>Adapt or remix concepts</li>
+            <li>Use for non-commercial learning</li>
         </ul>
 
         <h4>Conditions:</h4>
         <ul>
             <li>Clear attribution required</li>
-            <li>Strictly non-commercial use</li>
+            <li>No commercial use without written permission</li>
         </ul>
 
         <h4>You May Not:</h4>
         <ul>
-            <li>Sell the tool</li>
-            <li>Charge for access or services</li>
+            <li>Sell access or resell the tool</li>
+            <li>Charge for services based solely on this tool</li>
             <li>Claim proprietary ownership</li>
         </ul>
 
-        <p>For commercial permissions, contact the creator directly.</p>
+        <p>For commercial permissions, please contact the creator directly.</p>
         """,
         unsafe_allow_html=True
     )
-
     st.markdown("</div>", unsafe_allow_html=True)
 
-# -------------------------------------------------
+# ----------------------------------------------------
 # 3. PRIVACY & POPIA NOTICE
-# -------------------------------------------------
+# ----------------------------------------------------
 with tab3:
     st.markdown("<div class='im-tile'>", unsafe_allow_html=True)
-
     st.markdown(
         """
         <h2>Privacy & POPIA Notice</h2>
-        <p>This platform follows <b>data minimisation</b> and <b>purpose limitation</b>.</p>
+        <p>This platform follows <b>purpose limitation</b>, <b>data minimisation</b>, 
+        and <b>transparency</b> principles.</p>
 
-        <h4>Data Collected</h4>
+        <h4>Data Collected (Inside the App)</h4>
         <ul>
-            <li>Anonymous reflections</li>
+            <li>Anonymous reflections (if enabled)</li>
             <li>Optional comments</li>
-            <li>No cookies or analytics</li>
+        </ul>
+        <p>No identifying fields (name, email, ID number) are requested.</p>
+
+        <h4>Feedback Form (External)</h4>
+        <p>The feedback page uses an embedded <b>Google Forms</b> questionnaire.</p>
+
+        <ul>
+            <li>Responses are securely stored by Google</li>
+            <li>Google may process IP addresses and device data for security</li>
+            <li>The creator only views the written responses</li>
+            <li>No profiling or cross-linking is performed</li>
         </ul>
 
-        <h4>Not Collected</h4>
+        <h4>Not Collected by the App</h4>
         <ul>
-            <li>Names</li>
-            <li>Email addresses</li>
+            <li>Account login details</li>
             <li>ID numbers</li>
-            <li>IP addresses</li>
-            <li>Device info</li>
+            <li>Emails (unless you type them voluntarily)</li>
+            <li>Geolocation</li>
         </ul>
 
-        <h4>Data Storage</h4>
-        <ul>
-            <li><i>reflections.json</i></li>
-            <li><i>comments.json</i></li>
-        </ul>
+        <p><b>Please avoid including personal or sensitive information in free-text responses.</b></p>
 
         <h4>User Rights</h4>
-        <p>Users may request deletion of reflections or comments.</p>
+        <p>You may request deletion of your reflections or feedback entries at any time 
+        by contacting the creator and describing the item to be removed.</p>
 
         <h4>Security</h4>
-        <p>Designed to prevent profiling or identification.</p>
+        <p>Data is kept minimal, isolated, and not used for identification or profiling.</p>
+
+        <p><br>Overall, this is a <b>low-risk POPIA environment</b>.</p>
         """,
         unsafe_allow_html=True
     )
-
     st.markdown("</div>", unsafe_allow_html=True)
 
-# -------------------------------------------------
+# ----------------------------------------------------
 # 4. POPIA MEMO
-# -------------------------------------------------
+# ----------------------------------------------------
 with tab4:
     st.markdown("<div class='im-tile'>", unsafe_allow_html=True)
-
     st.markdown(
         """
         <h2>POPIA Compliance Memo</h2>
 
         <h4>1. Minimal Data Collection</h4>
-        <p>Only anonymous, non-personal data is stored.</p>
+        <p>The platform collects only anonymous reflections and optional comments.  
+        Feedback via Google Forms is stored externally by Google.</p>
 
         <h4>2. Purpose Limitation</h4>
-        <p>Used only for reflection and educational insight.</p>
+        <p>All data is used solely for learning, improvement, and platform refinement.</p>
 
-        <h4>3. Storage & Safeguards</h4>
-        <p>JSON files contain no personal identifiers.</p>
+        <h4>3. External Processors</h4>
+        <p>Google Forms may process technical information (e.g., IP address, device details).  
+        This is separate from the app and handled by Google’s infrastructure.</p>
 
-        <h4>4. Transparency</h4>
-        <p>Users are fully informed at all times.</p>
+        <h4>4. Safeguards</h4>
+        <p>No profiling, tracking, or identification is performed.  
+        No cross-linking with any employer or external database.</p>
 
-        <h4>5. Data Quality</h4>
-        <p>No external sharing, no cross-linking.</p>
+        <h4>5. Deletion Rights</h4>
+        <p>Users may request deletion of any reflection or feedback entry.</p>
 
-        <h4>6. Risk Level</h4>
-        <p>This is a <b>low-risk POPIA system</b>.</p>
+        <h4>6. Risk Assessment</h4>
+        <p>Due to minimal data capture and no identifiers, the platform constitutes a 
+        <b>low-risk POPIA system</b>.</p>
 
-        <h4>7. Compliance Summary</h4>
-        <ul>
-            <li>Purpose Limitation</li>
-            <li>Data Minimisation</li>
-            <li>Collection Limitation</li>
-            <li>Security Safeguards</li>
-            <li>Openness</li>
-        </ul>
-        """,
+        <h4>7. Independence Statement</h4>
+        <p>This platform is a personal project by the creator and has 
+        <b>no connection to any employer, agency, or organisation</b>.  
+        No employer information, databases, or systems are used.</p>
+
+        """
+        ,
         unsafe_allow_html=True
     )
 
     st.markdown("</div>", unsafe_allow_html=True)
+
