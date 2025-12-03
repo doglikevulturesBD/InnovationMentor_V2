@@ -69,7 +69,7 @@ st.markdown("---")
 # ----------------------------------------------------
 # FINANCING RECOMMENDATIONS (tile)
 # ----------------------------------------------------
-st.subheader("💡 Recommended Financing Options")
+st.subheader("Recommended Financing Options")
 
 recommendations = {
     "Ideation": [
@@ -122,7 +122,7 @@ st.markdown("---")
 # ----------------------------------------------------
 st.markdown("""
 <div class='im-tile'>
-    <h3>📝 Reflection</h3>
+    <h3>Reflection</h3>
     <p>How does this influence your funding and capital strategy?</p>
 </div>
 """, unsafe_allow_html=True)
