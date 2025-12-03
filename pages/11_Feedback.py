@@ -57,7 +57,7 @@ st.markdown("---")
 # ----------------------------------------------------
 st.markdown("<div class='im-tile'>", unsafe_allow_html=True)
 
-st.markdown("## 📝 Full Feedback Form")
+st.markdown("## Full Feedback Form")
 st.markdown("Please complete the detailed form below:")
 
 st.components.v1.html(
