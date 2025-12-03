@@ -76,7 +76,7 @@ with open(r_path, "r", encoding="utf-8") as f:
 # ------------------------------------------------------
 # QUESTIONNAIRE
 # ------------------------------------------------------
-st.header("📋 IP Questionnaire")
+st.header("IP Questionnaire")
 
 for q in questions:
     st.radio(
