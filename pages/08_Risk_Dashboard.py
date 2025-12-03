@@ -49,14 +49,6 @@ st.markdown(hero_html, unsafe_allow_html=True)
 # ----------------------------------------------------
 st.markdown("<div class='section-block'>", unsafe_allow_html=True)
 
-st.caption("Blending questionnaire inputs with context from other modules to build a live risk profile.")
-
-st.markdown("""
-This dashboard combines a short **diagnostic questionnaire** with automatic context from other modules  
-(TRL, Business Model, Marketing, Financing, Commercialisation, IP)  
-to generate a tailored **Top Risk Profile** with practical mitigation steps.
-""")
-
 st.markdown("---")
 
 # ----------------------------------------------------
