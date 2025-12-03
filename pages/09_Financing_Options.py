@@ -47,10 +47,7 @@ st.markdown("<div class='section-block'>", unsafe_allow_html=True)
 
 st.caption("This guide gives stage-aligned funding options — not formal financial advice.")
 
-st.markdown("""
-Different financing tools unlock at different stages.  
-Select your TRL / growth stage below to see targeted funding pathways.
-""")
+
 
 st.markdown("---")
 
