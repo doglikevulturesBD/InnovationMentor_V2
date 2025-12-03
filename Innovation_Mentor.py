@@ -31,7 +31,7 @@ hero_html = textwrap.dedent("""
 
 <div class="hero-content">
 <h1 class="hero-title">Innovation Mentor</h1>
-<p class="hero-sub">A future-ready space for innovators, startups, and portfolio managers.</p>
+<p class="hero-sub">A future-ready space for innovators, startups, and entrepreneurs.</p>
 </div>
 </div>
 """)
